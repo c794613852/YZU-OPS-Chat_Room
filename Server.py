@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 import socket
 import threading
-from time import gmtime, strftime
+from time import gmtime, localtime, strftime
 
 
 class Server:
@@ -36,6 +36,8 @@ class Server:
         for c in self.mylist:
             if c.fileno() != exceptNum:
                 try:
+                    currentTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
+                    whatToSay = whatToSay + "            " + currentTime
                     c.send(whatToSay.encode())
                 except:
                     pass
