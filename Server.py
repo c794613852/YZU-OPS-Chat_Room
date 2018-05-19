@@ -33,12 +33,12 @@ class Server:
 
     # send whatToSay to every except people in exceptNum
     def tellOthers(self, exceptNum, whatToSay):
+        #print(self.mylist)
         for c in self.mylist:
             if c.fileno() != exceptNum:
                 try:
                     currentTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
-                    whatToSay = whatToSay + "            " + currentTime
-                    c.send(whatToSay.encode())
+                    c.send((whatToSay + "            " + currentTime).encode())
                 except:
                     pass
 
