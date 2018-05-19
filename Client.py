@@ -9,9 +9,14 @@ class Client:
         self.sock.send(b'1')
 
     def sendThreadFunc(self):
+        print("Welcome to chat room!")
+        print('Input your nickname: ')
+        nickname = input()
+        print("Now lets chat,",nickname)
         while True:
             try:
                 myword = input()
+                myword = nickname + ": " + myword
                 self.sock.send(myword.encode())
             except ConnectionAbortedError:
                 print('Server closed this connection!')
