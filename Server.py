@@ -33,12 +33,12 @@ class Server:
             pass
 
     # send whatToSay to every except people in exceptNum
-    def tellOthers(self, exceptNum, whatToSay, connNumber ):
+    def tellOthers(self, exceptNum, whatToSay ):
         for c in self.mylist:
             if c.fileno() != exceptNum:
                 try:
                     currentTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
-                    num=str(connNumber)
+                    num=str(exceptNum)
                     c.send((whatToSay + "            " + currentTime + " [ " + num + " ] ").encode())
                 except:
                     pass
@@ -53,7 +53,7 @@ class Server:
                         self.nicknameList[connNumber] = recvedMsg.split()[1]
                     else:
                         pass
-                    self.tellOthers(connNumber, recvedMsg, connNumber )
+                    self.tellOthers(connNumber, recvedMsg )
                 else:
                     pass
 
