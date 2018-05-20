@@ -12,6 +12,7 @@ class Server:
         self.sock.listen(5)
         print('Server', socket.gethostbyname(host), 'listening ...')
         self.mylist = list()
+        self.nicknameList = {}
 
     def checkConnection(self):
         connection, addr = self.sock.accept()
@@ -33,7 +34,6 @@ class Server:
 
     # send whatToSay to every except people in exceptNum
     def tellOthers(self, exceptNum, whatToSay):
-        #print(self.mylist)
         for c in self.mylist:
             if c.fileno() != exceptNum:
                 try:
@@ -48,6 +48,10 @@ class Server:
             try:
                 recvedMsg = myconnection.recv(1024).decode()
                 if recvedMsg:
+                    if connNumber not in self.nicknameList:
+                        self.nicknameList[connNumber] = recvedMsg.split()[1]
+                    else:
+                        pass
                     self.tellOthers(connNumber, recvedMsg)
                 else:
                     pass
@@ -55,6 +59,8 @@ class Server:
             except (OSError, ConnectionResetError):
                 try:
                     self.mylist.remove(myconnection)
+                    self.tellOthers(connNumber, "SYSTEM: " + self.nicknameList[connNumber] + " leave the room")
+                    del self.nicknameList[connNumber]
                 except:
                     pass
 
