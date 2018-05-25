@@ -1,6 +1,15 @@
 import socket
 import threading
 
+from PyQt5.QtWidgets import QMainWindow,QApplication
+import mainwindow_ui
+import sys
+
+class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
+    def __init__(self):
+        super(self.__class__,self).__init__()
+        self.setupUi(self)
+
 class Client:
     def __init__(self, host, port):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -47,4 +56,8 @@ def main():
     t.join()
 
 if __name__ == "__main__":
+    app=QApplication(sys.argv)
+    MainWindow=Main()
+    MainWindow.show()
+    sys.exit(app.exec_())
     main()
