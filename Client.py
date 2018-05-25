@@ -10,12 +10,21 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
         super(self.__class__,self).__init__()
         self.setupUi(self)
         self.login_button.clicked.connect(self.Login)
+        self.send_button.setEnabled(False)
+        self.message_line.setEnabled(False)
     def Login(self):
         text=self.nickname_line.text()
-        c = Client('140.138.145.39', 5550,text)
+        self.c = Client('140.138.145.39', 5550,text)
+        self.chat_line.append("Welcome, "+text)
+        self.chat_line.append("Lets Chat, "+text)
         self.nickname_line.setEnabled(False)
         self.login_button.setEnabled(False)
-        
+        self.send_button.setEnabled(True)
+        self.message_line.setEnabled(True)
+    def Send(self):
+        self.meg=self.message_line.text()
+
+
 
 
 
@@ -25,7 +34,7 @@ class Client:
         self.sock = sock
         self.sock.connect((host, port))
         self.sock.send(b'1')
-        username=name
+        self.username = name
 
     def sendThreadFunc(self):
         print("Welcome to chat room!")
@@ -36,7 +45,7 @@ class Client:
         print("Now lets chat,",nickname)
         while True:
             try:
-                myword = input()
+                myword = Main.meg
                 myword = nickname + ": " + myword
                 self.sock.send(myword.encode())
             except ConnectionAbortedError:
@@ -54,15 +63,16 @@ class Client:
 
             except ConnectionResetError:
                 print('Server is closed!')
-
 def main():
-    th1 = threading.Thread(target=c.sendThreadFunc)
-    th2 = threading.Thread(target=c.recvThreadFunc)
+    th1 = threading.Thread(target=Main.c.sendThreadFunc)
+    th2 = threading.Thread(target=Main.c.recvThreadFunc)
     threads = [th1, th2]
     for t in threads:
         t.setDaemon(True)
         t.start()
-    t.join()
+        t.join()
+
+
 
 if __name__ == "__main__":
     app=QApplication(sys.argv)
@@ -70,3 +80,4 @@ if __name__ == "__main__":
     MainWindow.show()
     sys.exit(app.exec_())
     main()
+
