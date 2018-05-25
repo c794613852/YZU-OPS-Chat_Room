@@ -9,18 +9,28 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
     def __init__(self):
         super(self.__class__,self).__init__()
         self.setupUi(self)
+        self.login_button.clicked.connect(self.Login)
+    def Login(self):
+        text=self.nickname_line.text()
+        c = Client('140.138.145.39', 5550,text)
+        self.nickname_line.setEnabled(False)
+        self.login_button.setEnabled(False)
+        
+
+
 
 class Client:
-    def __init__(self, host, port):
+    def __init__(self, host, port,name):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock = sock
         self.sock.connect((host, port))
         self.sock.send(b'1')
+        username=name
 
     def sendThreadFunc(self):
         print("Welcome to chat room!")
         print('Input your nickname: ')
-        nickname = input()
+        nickname = self.username
         senick = "SYSTEM: "+ nickname + " in the chat room "
         self.sock.send(senick.encode())
         print("Now lets chat,",nickname)
@@ -46,7 +56,6 @@ class Client:
                 print('Server is closed!')
 
 def main():
-    c = Client('140.138.145.39', 5550)
     th1 = threading.Thread(target=c.sendThreadFunc)
     th2 = threading.Thread(target=c.recvThreadFunc)
     threads = [th1, th2]
