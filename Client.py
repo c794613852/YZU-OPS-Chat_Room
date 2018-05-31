@@ -1,89 +1,77 @@
 import socket
 import threading
+
 from PyQt5.QtWidgets import QMainWindow,QApplication
 import mainwindow_ui
 import sys
-
-class Client(QMainWindow,mainwindow_ui.Ui_MainWindow):
+sendBtnPushed = False
+class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
     def __init__(self):
-
         super(self.__class__,self).__init__()
         self.setupUi(self)
+        self.show()
+        self.login_button.clicked.connect(self.Login)
+        self.send_button.clicked.connect(self.Send)
+        self.send_button.setEnabled(False)
+        self.message_line.setEnabled(False)
+        self.chat_line.append("Welcome to chat room!")
+        self.chat_line.append("Input your nickname: ")
+    def Login(self):
+        self.nickname = self.nickname_line.text()
+        #self.c = Client('140.138.145.39', 5550,text)
+        self.chat_line.append("Welcome, " + self.nickname)
+        self.chat_line.append("Lets Chat, " + self.nickname)
+        senick = "SYSTEM: " + self.nickname + " is in the chat room"
+        c.sock.send(senick.encode())
+        self.nickname_line.setEnabled(False)
+        self.login_button.setEnabled(False)
+        self.send_button.setEnabled(True)
+        self.message_line.setEnabled(True)
+    def Send(self):
+        global sendBtnPushed
+        sendBtnPushed = True
+        meg = self.message_line.text()
+        c.sendThreadFunc()
 
-        host='localhost'
-        port=5550
-
+class Client:
+    def __init__(self, host, port):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock = sock
         self.sock.connect((host, port))
         self.sock.send(b'1')
 
-        th1=self.sendThreadFunc()
-        #th2=self.recvThreadFunc()
-
-        '''th1 = threading.Thread(target=self.sendThreadFunc)
-        th2 = threading.Thread(target=self.recvThreadFunc)
-        threads = [th1, th2]
-        for t in threads:
-            t.setDaemon(True)
-            t.start()
-        t.join()'''
-
-
     def sendThreadFunc(self):
-        self.chat_line.append("Welcome to chat room!")
-        self.chat_line.append('Input your nickname: ')
-        #show the nickname
-        self.login_button.clicked.connect(self.login)
-        self.send_button.clicked.connect(self.sendmessage)
-        '''
-        while True:
+        global sendBtnPushed
+        while sendBtnPushed:
             try:
-                self.send_button.clicked.connect(self.sendmessage())
+                myword = MainWindow.nickname + ": " + MainWindow.message_line.text()
+                MainWindow.chat_line.append(myword)
+                self.sock.send(myword.encode())
+                MainWindow.message_line.setText("")
+                sendBtnPushed = False
             except ConnectionAbortedError:
-                self.chat_line.append('Server closed this connection!')
+                print('Server closed this connection!')
             except ConnectionResetError:
-                self.chat_line.append('Server is closed!')
-                '''
-    def login(self):
-        text=self.nickname_line.text()
-        nickname = text
-        senick = "SYSTEM: "+ nickname + " in the chat room "
-        self.sock.send(senick.encode())
-        str="Now lets chat,"+nickname
-        self.chat_line.append(str)
-        self.nickname_line.setEnabled(False)
-        self.login_button.setEnabled(False)
-        self.send_button.setEnabled(True)
-        self.message_line.setEnabled(True)
-
-    def sendmessage(self):
-        myword =  self.message_line.text()
-        self.message_line.setText("")
-        myword = self.nickname_line.text() + ": " + myword
-        self.chat_line.append(myword)
-        self.sock.send(myword.encode())
-
-
+                print('Server is closed!')
 
     def recvThreadFunc(self):
-        otherword = self.sock.recv(1024) # socket.recv(recv_size)
-        self.chat_line.append(otherword.decode())
-        '''
         while True:
             try:
                 otherword = self.sock.recv(1024) # socket.recv(recv_size)
-                self.chat_line.append(otherword.decode())
+                MainWindow.chat_line.append(otherword.decode())
             except ConnectionAbortedError:
-                self.chat_line.append('Server closed this connection!')
+                print('Server closed this connection!')
 
             except ConnectionResetError:
-               self.chat_line.append('Server is closed!')
-               '''
+                print('Server is closed!')
 
-'''
 def main():
-    c = Client('localhost', 5550)
+    th0 = threading.Thread(target=ui)
+    th0.setDaemon(True)
+    th0.start()
+    #th0.join()
+    sys.exit(app.exec_())
+def ui():
     th1 = threading.Thread(target=c.sendThreadFunc)
     th2 = threading.Thread(target=c.recvThreadFunc)
     threads = [th1, th2]
@@ -91,11 +79,10 @@ def main():
         t.setDaemon(True)
         t.start()
     t.join()
-    '''
 
 
 if __name__ == "__main__":
+    c = Client('localhost', 5550)
     app=QApplication(sys.argv)
-    MainWindow=Client()
-    MainWindow.show()
-    sys.exit(app.exec_())
+    MainWindow = Main()
+    main()
