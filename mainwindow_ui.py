@@ -66,3 +66,4 @@ class Ui_MainWindow(object):
         self.login_button.setText(_translate("MainWindow", "Login"))
         self.send_button.setText(_translate("MainWindow", "Send"))
         self.updatepass_button.setText(_translate("MainWindow", "update password"))
+
