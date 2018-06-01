@@ -45,7 +45,7 @@ class Client:
         while sendBtnPushed:
             try:
                 myword = MainWindow.nickname + ": " + MainWindow.message_line.text()
-                MainWindow.chat_line.append(myword.rjust(100-len(myword)))
+                MainWindow.chat_line.append(myword)
                 self.sock.send(myword.encode())
                 MainWindow.message_line.setText("")
                 sendBtnPushed = False

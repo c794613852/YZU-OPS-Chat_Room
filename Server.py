@@ -45,7 +45,7 @@ class Server:
         for c in self.mylist:
             if c.fileno() != exceptNum:
                 try:
-                    currentTime = strftime("%H:%M:%S", localtime())
+                    currentTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
                     num=str(exceptNum)
                     c.send((whatToSay + "            " + currentTime + " [ " + num + " ] ").encode())
                 except:
