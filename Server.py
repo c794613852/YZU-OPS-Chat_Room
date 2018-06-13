@@ -12,6 +12,7 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
     def __init__(self):
         super(self.__class__,self).__init__()
         self.setupUi(self)
+        self.show()
 
 
 class Server:
@@ -93,5 +94,4 @@ if __name__ == "__main__":
     s = Server('localhost', 5550)
     app=QApplication(sys.argv)
     MainWindow=Main()
-    MainWindow.show()
     main()

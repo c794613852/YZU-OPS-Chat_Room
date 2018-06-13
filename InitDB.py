@@ -33,30 +33,61 @@ class DataBaseChatRoom:
 
     # delete user by uname
     # dbChatRoom.deleteUser(['A'])
-    def deleteUser(self, unameList=None):
+    def deleteUser(self, unameList):
+        accoutexist=self.checkUserExist(unameList)
+        print(accoutexist)
+        if(accoutexist):
+            self.collection.remove({'uname': unameList})
+            print("delete successfully")
+        else:
+            print("this account is not exist")
         pass
         return 'successful'
 
     # insert user
     # dbChatRoom.insertUser(uname='A', upwd='A')
-    def insertUser(self, uname=None, upwd=None):
+    def insertUser(self, uname, upwd):
+        self.collection.insert_one({'uname': uname, 'upwd': upwd})
+        print("insert successfully")
         pass
         return 'successful'
 
-    def updataUser(self, uname=None, upwd=None):
+    def updataUser(self, uname, upwd):
+        accountsame=self.queryByuname(uname, upwd)
+        if(accountsame):
+            print("this account is same as prevent")
+        else:
+            temp=self.collection.update({'uname': uname},{'$set':{'upwd': upwd}})
+            print(temp)
+            print("update successfully")
         pass
         return 'successful'
 
     # check checkUserExist
-    def checkUserExist(self, uname='A'):
-        pass
-        return False
+    def checkUserExist(self, uname):
+        accoutexist=False
+        for account in self.collection.find({'uname': uname}).limit(1):
+            print(account)
+            accoutexist=True
+        if(accoutexist):
+            print("User is exist")
+            return True
+        else:
+            print("User is not exist")
+            return False
 
     # query user bu uname
     # dbChatRoom.queryByuname(uname='A', upwd='A')
-    def queryByuname(self, uname='A', upwd='A'):
-        pass
-        return False
+    def queryByuname(self, uname, upwd):
+        accountsame=False
+        for account in self.collection.find({'uname': uname, 'upwd': upwd}):
+            print (account)
+            print("the name is find")
+            accountsame=True
+        if(accountsame):
+            return True
+        else:
+            return False
 
     # Init database
     # dbChatRoom.Initdatabase()
@@ -76,6 +107,13 @@ class DataBaseChatRoom:
 def main():
     dbChatRoom = DataBaseChatRoom()
     dbChatRoom.Initdatabase()
+    #dbChatRoom.insertUser('Q','Q')
+    #dbChatRoom.deleteUser('A','A')
+    #dbChatRoom.queryByuname('A','A')
+    #dbChatRoom.updataUser('B','K')
+    #dbChatRoom.checkUserExist('B')
+    #if you fell too many data , you can use this instruction
+    #dbChatRoom.collection.remove()
     dbChatRoom.colseClient()
 
 

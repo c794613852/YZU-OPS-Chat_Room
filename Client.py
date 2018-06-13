@@ -1,10 +1,11 @@
 import socket
 import threading
-
+import InitDB
 from PyQt5.QtWidgets import QMainWindow,QApplication
 import mainwindow_ui
 import sys
 sendBtnPushed = False
+
 class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
     def __init__(self):
         super(self.__class__,self).__init__()
@@ -14,10 +15,16 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
         self.send_button.clicked.connect(self.Send)
         self.send_button.setEnabled(False)
         self.message_line.setEnabled(False)
+        self.changepass_line.setEnabled(False)
+        self.updatepass_button.setEnabled(False)
         self.chat_line.append("Welcome to chat room!")
         self.chat_line.append("Input your nickname: ")
     def Login(self):
         self.nickname = self.nickname_line.text()
+        self.password = self.password_line.text()
+        print("name : "+self.nickname)
+        print("password : "+self.password)
+        #InitDB.queryByuname(self , self.nickname , self.password)
         #self.c = Client('140.138.145.39', 5550,text)
         self.chat_line.append("Welcome, " + self.nickname)
         self.chat_line.append("Lets Chat, " + self.nickname)
@@ -27,6 +34,8 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
         self.login_button.setEnabled(False)
         self.send_button.setEnabled(True)
         self.message_line.setEnabled(True)
+        self.changepass_line.setEnabled(True)
+        self.updatepass_button.setEnabled(True)
     def Send(self):
         global sendBtnPushed
         sendBtnPushed = True
