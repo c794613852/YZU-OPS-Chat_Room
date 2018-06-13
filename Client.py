@@ -71,6 +71,7 @@ def main():
     th0.start()
     #th0.join()
     sys.exit(app.exec_())
+
 def ui():
     th1 = threading.Thread(target=c.sendThreadFunc)
     th2 = threading.Thread(target=c.recvThreadFunc)
