@@ -1,6 +1,6 @@
 import socket
 import threading
-import InitDB
+from InitDB import DataBaseChatRoom
 from PyQt5.QtWidgets import QMainWindow,QApplication
 import mainwindow_ui
 import sys
@@ -24,7 +24,7 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
         self.password = self.password_line.text()
         print("name : "+self.nickname)
         print("password : "+self.password)
-        #InitDB.queryByuname(self , self.nickname , self.password)
+        db.queryByuname(self.nickname, self.password)
         #self.c = Client('140.138.145.39', 5550,text)
         self.chat_line.append("Welcome, " + self.nickname)
         self.chat_line.append("Lets Chat, " + self.nickname)
@@ -93,6 +93,7 @@ def ui():
 
 if __name__ == "__main__":
     c = Client('localhost', 5550)
+    db = DataBaseChatRoom()
     app=QApplication(sys.argv)
     MainWindow = Main()
     main()

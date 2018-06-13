@@ -103,7 +103,6 @@ class DataBaseChatRoom:
     def colseClient(self):
         self.client.close()
 
-
 def main():
     dbChatRoom = DataBaseChatRoom()
     dbChatRoom.Initdatabase()
