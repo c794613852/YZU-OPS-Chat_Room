@@ -55,13 +55,14 @@ class DataBaseChatRoom:
     def updataUser(self, uname, upwd):
         accountsame=self.queryByuname(uname, upwd)
         if(accountsame):
-            print("this account is same as prevent")
+            result = "this account is same as prevent"
         else:
-            temp=self.collection.update({'uname': uname},{'$set':{'upwd': upwd}})
-            print(temp)
-            print("update successfully")
-        pass
-        return 'successful'
+            temp = self.collection.update({'uname': uname},{'$set':{'upwd': upwd}})
+            if(temp["updatedExisting"]):
+                result = "Update Successfull"
+            else:
+                result = "Update Fail"
+        return result
 
     # check checkUserExist
     def checkUserExist(self, uname):
@@ -84,10 +85,7 @@ class DataBaseChatRoom:
             print (account)
             print("the name is find")
             accountsame=True
-        if(accountsame):
-            return True
-        else:
-            return False
+        return accountsame
 
     # Init database
     # dbChatRoom.Initdatabase()

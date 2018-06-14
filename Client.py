@@ -13,6 +13,7 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
         self.show()
         self.login_button.clicked.connect(self.Login)
         self.send_button.clicked.connect(self.Send)
+        self.updatepass_button.clicked.connect(self.ChangePass)
         self.send_button.setEnabled(False)
         self.message_line.setEnabled(False)
         self.changepass_line.setEnabled(False)
@@ -24,18 +25,29 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
         self.password = self.password_line.text()
         print("name : "+self.nickname)
         print("password : "+self.password)
-        db.queryByuname(self.nickname, self.password)
-        #self.c = Client('140.138.145.39', 5550,text)
-        self.chat_line.append("Welcome, " + self.nickname)
-        self.chat_line.append("Lets Chat, " + self.nickname)
-        senick = "SYSTEM: " + self.nickname + " is in the chat room"
-        c.sock.send(senick.encode())
-        self.nickname_line.setEnabled(False)
-        self.login_button.setEnabled(False)
-        self.send_button.setEnabled(True)
-        self.message_line.setEnabled(True)
-        self.changepass_line.setEnabled(True)
-        self.updatepass_button.setEnabled(True)
+        loginSuc = db.queryByuname(self.nickname, self.password)
+        if(loginSuc):
+            self.chat_line.append("Welcome, " + self.nickname)
+            self.chat_line.append("Lets Chat, " + self.nickname)
+            senick = "SYSTEM: " + self.nickname + " is in the chat room"
+            c.sock.send(senick.encode())
+            self.nickname_line.setEnabled(False)
+            self.password_line.setEnabled(False)
+            self.login_button.setEnabled(False)
+            self.send_button.setEnabled(True)
+            self.message_line.setEnabled(True)
+            self.changepass_line.setEnabled(True)
+            self.updatepass_button.setEnabled(True)
+        else:
+            self.chat_line.append("Wrong name or password, please login again")
+
+    def ChangePass(self):
+        if(self.changepass_line.text() != ""):
+            newpass = self.changepass_line.text()
+            result = db.updataUser(self.nickname,newpass)
+            self.changepass_line.setText("")
+            self.chat_line.append(result)
+
     def Send(self):
         global sendBtnPushed
         sendBtnPushed = True
