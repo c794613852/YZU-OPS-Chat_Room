@@ -2,7 +2,7 @@
 import socket
 import threading
 from time import gmtime, localtime, strftime
-
+from InitDB import DataBaseChatRoom
 from PyQt5.QtWidgets import QMainWindow,QApplication
 import severwindow_ui
 import sys
@@ -13,7 +13,17 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
         super(self.__class__,self).__init__()
         self.setupUi(self)
         self.show()
-
+        self.add_button.clicked.connect(self.register)
+    def register(self):
+        user=self.nickname_line.text()
+        password=self.password_line.text()
+        result=db.checkUserExist(user)
+        if(result=="User is not exist"):
+            db.insertUser(user,password)
+            print("user : " + user)
+            print("password : " + password)
+        else:
+            print(result)
 
 class Server:
     def __init__(self, host, port):
@@ -92,6 +102,7 @@ def ui():
 
 if __name__ == "__main__":
     s = Server('localhost', 5550)
+    db = DataBaseChatRoom()
     app=QApplication(sys.argv)
     MainWindow=Main()
     main()

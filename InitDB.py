@@ -71,11 +71,10 @@ class DataBaseChatRoom:
             print(account)
             accoutexist=True
         if(accoutexist):
-            print("User is exist")
-            return True
+            result="User is exist"
         else:
-            print("User is not exist")
-            return False
+            result="User is not exist"
+        return result
 
     # query user bu uname
     # dbChatRoom.queryByuname(uname='A', upwd='A')
@@ -103,7 +102,7 @@ class DataBaseChatRoom:
 
 def main():
     dbChatRoom = DataBaseChatRoom()
-    dbChatRoom.Initdatabase()
+    #dbChatRoom.Initdatabase()
     #dbChatRoom.insertUser('Q','Q')
     #dbChatRoom.deleteUser('A','A')
     #dbChatRoom.queryByuname('A','A')
