@@ -62,7 +62,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Chat Application"))
         self.nickname_label.setText(_translate("MainWindow", "Nick Name"))
         self.changpass_label.setText(_translate("MainWindow", "chang password"))
-        self.onlinenum_label.setText(_translate("MainWindow", "目前連天室有"))
+        self.onlinenum_label.setText(_translate("MainWindow", "目前連天室有 0"))
         self.login_button.setText(_translate("MainWindow", "Login"))
         self.send_button.setText(_translate("MainWindow", "Send"))
         self.updatepass_button.setText(_translate("MainWindow", "update password"))
