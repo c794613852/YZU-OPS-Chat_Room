@@ -26,32 +26,33 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
         print("name : "+self.nickname)
         print("password : "+self.password)
         loginSuc = db.queryByuname(self.nickname, self.password)
-        online = db.onoffline(self.nickname, self.password)
-        if(loginSuc) and (online == 'False'):
-            global recvlog
-            db.updataUser(self.nickname, self.password,'True')
-            c.sock.send(recvlog.encode())
-            self.chat_line.append("Welcome, " + self.nickname)
-            self.chat_line.append("Lets Chat, " + self.nickname)
-            senick = "SYSTEM: " + self.nickname + " is in the chat room"
-            c.sock.send(senick.encode())
-            self.nickname_line.setEnabled(False)
-            self.password_line.setEnabled(False)
-            self.login_button.setEnabled(False)
-            self.send_button.setEnabled(True)
-            self.message_line.setEnabled(True)
-            self.changepass_line.setEnabled(True)
-            self.updatepass_button.setEnabled(True)
+        if(loginSuc):
+            online = db.onoffline(self.nickname, self.password)
+            if(online == 'False'):
+                global recvlog
+                c.sock.send(recvlog.encode())
+                self.chat_line.append("Welcome, " + self.nickname)
+                self.chat_line.append("Lets Chat, " + self.nickname)
+                senick = "SYSTEM: " + self.nickname + " is in the chat room"
+                c.sock.send(senick.encode())
+                self.nickname_line.setEnabled(False)
+                self.password_line.setEnabled(False)
+                self.login_button.setEnabled(False)
+                self.send_button.setEnabled(True)
+                self.message_line.setEnabled(True)
+                self.changepass_line.setEnabled(True)
+                self.updatepass_button.setEnabled(True)
+                db.updataUser(self.nickname, self.password,'True')
                 #MainWindow.onlinenum_label.setText(strpeonum)
-        elif(loginSuc) and (online == 'True'):
-            self.chat_line.append("This account has been logined")
+            else:
+                self.chat_line.append("This account has been logined")
         else:
             self.chat_line.append("Wrong name or password, please login again")
 
     def ChangePass(self):
         if(self.changepass_line.text() != ""):
             newpass = self.changepass_line.text()
-            result = db.updataUser(self.nickname,newpass)
+            result = db.updataUser(self.nickname,newpass,'True')
             self.changepass_line.setText("")
             self.chat_line.append(result)
 

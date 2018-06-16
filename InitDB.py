@@ -54,7 +54,8 @@ class DataBaseChatRoom:
 
     def updataUser(self, uname, upwd,online):
         accountsame=self.queryByuname(uname, upwd)
-        dbonline=self.onoffline(uname,upwd)
+        if(accountsame):
+            dbonline=self.onoffline(uname,upwd)
         temp=""
         if(accountsame) and (dbonline != online):
             temp = self.collection.update({'uname': uname},{'$set':{'upwd': upwd, 'online': online}})
@@ -116,11 +117,11 @@ class DataBaseChatRoom:
 
 def main():
     dbChatRoom = DataBaseChatRoom()
-    dbChatRoom.Initdatabase()
+    #dbChatRoom.Initdatabase()
     #dbChatRoom.insertUser('Q','Q')
     #dbChatRoom.deleteUser('A','A')
     #dbChatRoom.queryByuname('A','A')
-    #dbChatRoom.updataUser('B','B','False')
+    #dbChatRoom.updataUser('B','C','False')
     #dbChatRoom.onoffline('C','C')
     #dbChatRoom.checkUserExist('B')
     #if you fell too many data , you can use this instruction
