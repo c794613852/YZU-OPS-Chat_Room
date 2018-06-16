@@ -52,16 +52,19 @@ class DataBaseChatRoom:
         pass
         return 'successful'
 
-    def updataUser(self, uname, upwd):
+    def updataUser(self, uname, upwd,online):
         accountsame=self.queryByuname(uname, upwd)
-        if(accountsame):
-            result = "this account is same as prevent"
+        dbonline=self.onoffline(uname,upwd)
+        temp=""
+        if(accountsame) and (dbonline != online):
+            temp = self.collection.update({'uname': uname},{'$set':{'upwd': upwd, 'online': online}})
         else:
             temp = self.collection.update({'uname': uname},{'$set':{'upwd': upwd}})
-            if(temp["updatedExisting"]):
-                result = "Update Successfull"
-            else:
-                result = "Update Fail"
+
+        if(temp["updatedExisting"]):
+            result = "Update Successfull"
+        else:
+            result = "Update Fail"
         return result
 
     # check checkUserExist
@@ -86,15 +89,26 @@ class DataBaseChatRoom:
             accountsame=True
         return accountsame
 
+    def onoffline(self,uname, upwd):
+        for account in self.collection.find({'uname': uname, 'upwd': upwd}):
+            print(account['online'])
+        return account['online']
+
+    def findone_information(self, uname):
+        account=None
+        for account in self.collection.find({'uname': uname}):
+            print (account)
+        return account
+
     # Init database
     # dbChatRoom.Initdatabase()
     def Initdatabase(self):
         userList = []
-        userList.append({'uname': 'A', 'upwd': 'A'})
-        userList.append({'uname': 'B', 'upwd': 'B'})
-        userList.append({'uname': 'C', 'upwd': 'C'})
-        userList.append({'uname': 'D', 'upwd': 'D'})
-        userList.append({'uname': 'E', 'upwd': 'E'})
+        userList.append({'uname': 'A', 'upwd': 'A', 'online': 'False'})
+        userList.append({'uname': 'B', 'upwd': 'B', 'online': 'False'})
+        userList.append({'uname': 'C', 'upwd': 'C', 'online': 'False'})
+        userList.append({'uname': 'D', 'upwd': 'D', 'online': 'False'})
+        userList.append({'uname': 'E', 'upwd': 'E', 'online': 'False'})
         self.collection.insert_many(userList)
 
     def colseClient(self):
@@ -102,13 +116,15 @@ class DataBaseChatRoom:
 
 def main():
     dbChatRoom = DataBaseChatRoom()
-    #dbChatRoom.Initdatabase()
+    dbChatRoom.Initdatabase()
     #dbChatRoom.insertUser('Q','Q')
     #dbChatRoom.deleteUser('A','A')
     #dbChatRoom.queryByuname('A','A')
-    #dbChatRoom.updataUser('B','K')
+    #dbChatRoom.updataUser('B','B','False')
+    #dbChatRoom.onoffline('C','C')
     #dbChatRoom.checkUserExist('B')
     #if you fell too many data , you can use this instruction
+    #dbChatRoom.findone_information('A')
     #dbChatRoom.collection.remove()
     dbChatRoom.colseClient()
 

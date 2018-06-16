@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QMainWindow,QApplication
 import mainwindow_ui
 import sys
 sendBtnPushed = False
-recvlog =""
+recvlog ="systeM==!!"
 class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
     def __init__(self):
         super(self.__class__,self).__init__()
@@ -26,9 +26,11 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
         print("name : "+self.nickname)
         print("password : "+self.password)
         loginSuc = db.queryByuname(self.nickname, self.password)
-        if(loginSuc):
-            systemlogin="systeM==!!"
-            c.sock.send(systemlogin.encode())
+        online = db.onoffline(self.nickname, self.password)
+        if(loginSuc) and (online == 'False'):
+            global recvlog
+            db.updataUser(self.nickname, self.password,'True')
+            c.sock.send(recvlog.encode())
             self.chat_line.append("Welcome, " + self.nickname)
             self.chat_line.append("Lets Chat, " + self.nickname)
             senick = "SYSTEM: " + self.nickname + " is in the chat room"
@@ -40,12 +42,9 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
             self.message_line.setEnabled(True)
             self.changepass_line.setEnabled(True)
             self.updatepass_button.setEnabled(True)
-            chatpeo=MainWindow.onlinenum_label.text().split()
-            peonum=int(chatpeo[1]) + 1
-            strpeonum = chatpeo[0] + " " + str(peonum)
-            print(strpeonum)
-            if(strpeonum != MainWindow.onlinenum_label.text()):
-                MainWindow.onlinenum_label.setText(strpeonum)
+                #MainWindow.onlinenum_label.setText(strpeonum)
+        elif(loginSuc) and (online == 'True'):
+            self.chat_line.append("This account has been logined")
         else:
             self.chat_line.append("Wrong name or password, please login again")
 
@@ -68,6 +67,7 @@ class Client:
         self.sock = sock
         self.sock.connect((host, port))
         self.sock.send(b'1')
+        self.peonum = 0
 
     def sendThreadFunc(self):
         global sendBtnPushed
@@ -88,15 +88,9 @@ class Client:
         while True:
             try:
                 otherword = self.sock.recv(1024).decode() # socket.recv(recv_size)
-                recvlog=otherword.split()
-                if(recvlog[0]=="systeM==!!"):
-                    peocount=recvlog[1]
-                    stronlinenum=MainWindow.onlinenum_label.text().split()
-                    peoplecount=stronlinenum[0] + " " +peocount
-                    print(stronlinenum)
-                    print(peoplecount)
-                    if(peoplecount!=MainWindow.onlinenum_label.text()):
-                        MainWindow.onlinenum_label.setText(peoplecount)
+                systemlogin = otherword.split()
+                if(systemlogin[0] == recvlog):
+                    MainWindow.onlinenum_label.setText("目前連天室有 " + str(systemlogin[1]))
                 else:
                     MainWindow.chat_line.append(otherword)
 
