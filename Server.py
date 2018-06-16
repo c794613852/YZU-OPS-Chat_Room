@@ -6,7 +6,10 @@ from InitDB import DataBaseChatRoom
 from PyQt5.QtWidgets import QMainWindow,QApplication
 import severwindow_ui
 import sys
+peocount=0
 recvlogin="systeM==!!"
+loginbotton=False
+leavebotton=False
 
 class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
     def __init__(self):
@@ -34,7 +37,6 @@ class Server:
         print('Server', socket.gethostbyname(host), 'listening ...')
         self.mylist = list()
         self.nicknameList = {}
-        self.peonum = 0
 
 
     def checkConnection(self):
@@ -56,46 +58,60 @@ class Server:
 
     # send whatToSay to every except people in exceptNum
     def tellOthers(self, exceptNum, whatToSay ):
+        global loginbotton
+        global recvlogin
+        global peocount
+        global leavebotton
         for c in self.mylist:
             if c.fileno() != exceptNum:
                 try:
+                    if(loginbotton == True) or (leavebotton == True):
+                        strcoount=str(peocount)
+                        strcoount=recvlogin+" "+strcoount
+                        print(strcoount)
+                        c.send(strcoount.encode())
+                        loginbotton=False
+                        leavebotton=False
+
                     currentTime = strftime("%Y-%m-%d %H:%M:%S", localtime())
                     num=str(exceptNum)
                     c.send((whatToSay + "            " + currentTime + " [ " + num + " ] ").encode())
                     print(whatToSay)
                 except:
                     pass
-    #tell every one the new peonum
-    def peonumToClient(self):
-        for c in self.mylist:
-            global recvlogin
-            try:
-                c.send((recvlogin + " " + str(self.peonum)).encode())
-            except:
-                pass
 
     def subThreadIn(self, myconnection, connNumber):
         self.mylist.append(myconnection)
         while True:
-            global recvlogin
             try:
                 recvedMsg = myconnection.recv(1024).decode()
-                if recvedMsg == recvlogin:
-                    self.peonum += 1 #plus one to num of people in room
-                    self.peonumToClient() #tell everyone the new num of people in the room
-                elif recvedMsg:
-                    if connNumber not in self.nicknameList:
-                        self.nicknameList[connNumber] = recvedMsg.split()[1]
+                if(recvedMsg=="systeM==!!"):
+                    global peocount
+                    global loginbotton
+                    peocount = peocount + 1
+                    strcount=str(peocount)
+                    print("people count : " + strcount )
+                    loginbotton = True
+                else:
+                    if recvedMsg:
+                        if connNumber not in self.nicknameList:
+                            self.nicknameList[connNumber] = recvedMsg.split()[1]
+                        else:
+                            pass
+                        self.tellOthers(connNumber, recvedMsg )
                     else:
                         pass
-                    self.tellOthers(connNumber, recvedMsg )
+
             except (OSError, ConnectionResetError):
                 try:
+                    global leavebotton
                     self.mylist.remove(myconnection)
-                    self.peonum -= 1
+                    peocount = peocount - 1
+                    strcount=str(peocount)
+                    print("people count : " + strcount )
+                    leavebotton = True
                     self.tellOthers(connNumber, "SYSTEM: " + self.nicknameList[connNumber] + " leave the room")
                     del self.nicknameList[connNumber]
-                    self.peonumToClient()
                 except:
                     pass
 
