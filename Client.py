@@ -28,7 +28,7 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
         loginSuc = db.queryByuname(self.nickname, self.password)
         if(loginSuc):
             online = db.onoffline(self.nickname, self.password)
-            if(online == 'False'):
+            if(online == False):
                 global recvlog
                 c.sock.send(recvlog.encode())
                 self.chat_line.append("Welcome, " + self.nickname)
@@ -42,7 +42,7 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
                 self.message_line.setEnabled(True)
                 self.changepass_line.setEnabled(True)
                 self.updatepass_button.setEnabled(True)
-                db.updataUser(self.nickname, self.password,'True')
+                db.updataUser(self.nickname, self.password,True)
                 #MainWindow.onlinenum_label.setText(strpeonum)
             else:
                 self.chat_line.append("This account has been logined")
@@ -52,7 +52,7 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
     def ChangePass(self):
         if(self.changepass_line.text() != ""):
             newpass = self.changepass_line.text()
-            result = db.updataUser(self.nickname,newpass,'True')
+            result = db.updataUser(self.nickname,newpass,True)
             self.changepass_line.setText("")
             self.chat_line.append(result)
 

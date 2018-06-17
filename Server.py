@@ -19,7 +19,7 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
         password=self.password_line.text()
         result=db.checkUserExist(user)
         if(result=="User is not exist"):
-            db.insertUser(user,password)
+            db.insertUser(user,password,False)
             print("user : " + user)
             print("password : " + password)
         else:
@@ -97,7 +97,7 @@ class Server:
                     print(leaveinfor)
                     print('user:' + leaveinfor['uname'])
                     print('password' + leaveinfor['upwd'])
-                    db.updataUser(leaveinfor['uname'], leaveinfor['upwd'], 'False')
+                    db.updataUser(leaveinfor['uname'], leaveinfor['upwd'], False)
                     self.tellOthers(connNumber, "SYSTEM: " + self.nicknameList[connNumber] + " leave the room")
                     del self.nicknameList[connNumber]
                     self.peonumToClient()

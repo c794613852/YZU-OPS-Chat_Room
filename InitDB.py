@@ -46,8 +46,8 @@ class DataBaseChatRoom:
 
     # insert user
     # dbChatRoom.insertUser(uname='A', upwd='A')
-    def insertUser(self, uname, upwd):
-        self.collection.insert_one({'uname': uname, 'upwd': upwd})
+    def insertUser(self, uname, upwd ,online):
+        self.collection.insert_one({'uname': uname, 'upwd': upwd, 'online': online})
         print("insert successfully")
         pass
         return 'successful'
@@ -56,7 +56,6 @@ class DataBaseChatRoom:
         accountsame=self.queryByuname(uname, upwd)
         if(accountsame):
             dbonline=self.onoffline(uname,upwd)
-        temp=""
         if(accountsame) and (dbonline != online):
             temp = self.collection.update({'uname': uname},{'$set':{'upwd': upwd, 'online': online}})
         else:
@@ -101,15 +100,24 @@ class DataBaseChatRoom:
             print (account)
         return account
 
+    def allinformation(self):
+        accountinfor = []
+        for account in self.collection.find():
+            accountinfor.append(account)
+        for acconame in accountinfor:
+            print(acconame)
+        return accountinfor
+
+
     # Init database
     # dbChatRoom.Initdatabase()
     def Initdatabase(self):
         userList = []
-        userList.append({'uname': 'A', 'upwd': 'A', 'online': 'False'})
-        userList.append({'uname': 'B', 'upwd': 'B', 'online': 'False'})
-        userList.append({'uname': 'C', 'upwd': 'C', 'online': 'False'})
-        userList.append({'uname': 'D', 'upwd': 'D', 'online': 'False'})
-        userList.append({'uname': 'E', 'upwd': 'E', 'online': 'False'})
+        userList.append({'uname': 'A', 'upwd': 'A', 'online': False})
+        userList.append({'uname': 'B', 'upwd': 'B', 'online': False})
+        userList.append({'uname': 'C', 'upwd': 'C', 'online': False})
+        userList.append({'uname': 'D', 'upwd': 'D', 'online': False})
+        userList.append({'uname': 'E', 'upwd': 'E', 'online': False})
         self.collection.insert_many(userList)
 
     def colseClient(self):
@@ -126,6 +134,7 @@ def main():
     #dbChatRoom.checkUserExist('B')
     #if you fell too many data , you can use this instruction
     #dbChatRoom.findone_information('A')
+    dbChatRoom.allinformation()
     #dbChatRoom.collection.remove()
     dbChatRoom.colseClient()
 
