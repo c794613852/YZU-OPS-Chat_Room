@@ -14,6 +14,10 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
         self.setupUi(self)
         self.show()
         self.add_button.clicked.connect(self.register)
+        self.del_button.clicked.connect(self.delete)
+        self.showaccount()
+        #self.kick_button.clicked.connect(self.kick)
+
     def register(self):
         user=self.nickname_line.text()
         password=self.password_line.text()
@@ -24,6 +28,23 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
             print("password : " + password)
         else:
             print(result)
+
+    def delete(self):
+        user=self.user_line.text()
+        self.user_line.setText("")
+        db.deleteUser(user)
+        self.textBrowser.setText("")
+        self.showaccount()
+        print(user)
+
+    def showaccount(self):
+        account = db.allinformation()
+        for people in account:
+            print(people['uname'])
+            if(people['online']):
+                self.textBrowser.append(people['uname']+" "+"online")
+            else:
+                self.textBrowser.append(people['uname']+" "+"offline")
 
 class Server:
     def __init__(self, host, port):

@@ -125,7 +125,7 @@ class DataBaseChatRoom:
 
 def main():
     dbChatRoom = DataBaseChatRoom()
-    #dbChatRoom.Initdatabase()
+    dbChatRoom.Initdatabase()
     #dbChatRoom.insertUser('Q','Q')
     #dbChatRoom.deleteUser('A','A')
     #dbChatRoom.queryByuname('A','A')
@@ -134,7 +134,7 @@ def main():
     #dbChatRoom.checkUserExist('B')
     #if you fell too many data , you can use this instruction
     #dbChatRoom.findone_information('A')
-    dbChatRoom.allinformation()
+    #dbChatRoom.allinformation()
     #dbChatRoom.collection.remove()
     dbChatRoom.colseClient()
 
