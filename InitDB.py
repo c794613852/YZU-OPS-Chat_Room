@@ -36,7 +36,7 @@ class DataBaseChatRoom:
     def deleteUser(self, unameList):
         accoutexist=self.checkUserExist(unameList)
         print(accoutexist)
-        if(accoutexist):
+        if(accoutexist=="User is exist"):
             self.collection.remove({'uname': unameList})
             print("delete successfully")
         else:
@@ -127,7 +127,7 @@ def main():
     dbChatRoom = DataBaseChatRoom()
     dbChatRoom.Initdatabase()
     #dbChatRoom.insertUser('Q','Q')
-    #dbChatRoom.deleteUser('A','A')
+    #dbChatRoom.deleteUser('B')
     #dbChatRoom.queryByuname('A','A')
     #dbChatRoom.updataUser('B','C','False')
     #dbChatRoom.onoffline('C','C')
