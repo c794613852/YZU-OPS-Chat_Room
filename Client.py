@@ -1,7 +1,5 @@
 import socket
 import threading
-
-from Bot import Bot
 from InitDB import DataBaseChatRoom
 from PyQt5.QtWidgets import QMainWindow,QApplication
 import mainwindow_ui
@@ -93,7 +91,6 @@ class Client:
                 otherword = self.sock.recv(1024).decode() # socket.recv(recv_size)
                 systemlogin = otherword.split()
                 print(systemlogin[0])
-                bot.recvThreadFunc()
                 if(systemlogin[0] == recvlog):
                     MainWindow.onlinenum_label.setText("目前連天室有 " + str(systemlogin[1]))
                 elif (systemlogin[0] == "kick=="):
@@ -128,7 +125,6 @@ def ui():
 
 if __name__ == "__main__":
     c = Client('localhost', 5550)
-    bot=Bot('localhost',5550)
     db = DataBaseChatRoom()
     app=QApplication(sys.argv)
     MainWindow = Main()
