@@ -3,6 +3,8 @@ import socket
 import threading
 import os
 from time import gmtime, localtime, strftime
+
+from Bot import Bot
 from InitDB import DataBaseChatRoom
 from PyQt5.QtWidgets import QMainWindow,QApplication
 import severwindow_ui
@@ -125,12 +127,22 @@ class Server:
             global recvlogin
             try:
                 recvedMsg = myconnection.recv(1024).decode()
+                systemlogin = recvedMsg.split()
+                for w in  systemlogin :
+                    print(w)
                 if recvedMsg == recvlogin:
                     self.peonum += 1 #plus one to num of people in room
                     self.peonumToClient() #tell everyone the new num of people in the room
                 elif recvedMsg:
                     if connNumber not in self.nicknameList:
                         self.nicknameList[connNumber] = recvedMsg.split()[1]
+                    elif systemlogin[1] == "bot":
+                        bot.recv(recvedMsg)
+                        for c in self.mylist:
+                           try:
+                               c.send(bot.send().encode())
+                           except:
+                               pass
                     else:
                         pass
                     self.tellOthers(connNumber, recvedMsg )
@@ -166,7 +178,7 @@ def ui():
 if __name__ == "__main__":
     s = Server('localhost', 5550)
     db = DataBaseChatRoom()
-    #os.system("python Bot.py")
+    bot=Bot()
     app=QApplication(sys.argv)
     MainWindow=Main()
     main()
