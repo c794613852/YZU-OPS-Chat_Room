@@ -15,6 +15,7 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
         self.show()
         self.add_button.clicked.connect(self.register)
         self.del_button.clicked.connect(self.delete)
+        self.kick_button.clicked.connect(self.kick)
         self.showaccount()
         #self.kick_button.clicked.connect(self.kick)
 
@@ -28,6 +29,8 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
             print("password : " + password)
         else:
             print(result)
+        self.textBrowser.setText("")
+        self.showaccount()
 
     def delete(self):
         user=self.user_line.text()
@@ -36,6 +39,14 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
         self.textBrowser.setText("")
         self.showaccount()
         print(user)
+
+    def kick(self):
+        print(s.mylist)
+        print(s.nicknameList)
+        for c in s.mylist:
+            if s.nicknameList[c.fileno()] == self.user_line.text():
+                print(s.nicknameList[c.fileno()])
+                c.send(("kick==").encode())
 
     def showaccount(self):
         account = db.allinformation()
@@ -104,6 +115,8 @@ class Server:
                 if recvedMsg == recvlogin:
                     self.peonum += 1 #plus one to num of people in room
                     self.peonumToClient() #tell everyone the new num of people in the room
+                    #MainWindow.textBrowser.setText("why")
+                    #MainWindow.showaccount()
                 elif recvedMsg:
                     if connNumber not in self.nicknameList:
                         self.nicknameList[connNumber] = recvedMsg.split()[1]
@@ -122,6 +135,8 @@ class Server:
                     self.tellOthers(connNumber, "SYSTEM: " + self.nicknameList[connNumber] + " leave the room")
                     del self.nicknameList[connNumber]
                     self.peonumToClient()
+                    #MainWindow.textBrowser.setText("")
+                    #MainWindow.showaccount()
                 except:
                     pass
 

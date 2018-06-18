@@ -3,7 +3,7 @@ import threading
 from InitDB import DataBaseChatRoom
 from PyQt5.QtWidgets import QMainWindow,QApplication
 import mainwindow_ui
-import sys
+import sys,os
 sendBtnPushed = False
 recvlog ="systeM==!!"
 class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
@@ -30,6 +30,7 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
             online = db.onoffline(self.nickname, self.password)
             if(online == False):
                 global recvlog
+                db.updataUser(self.nickname, self.password,True)
                 c.sock.send(recvlog.encode())
                 self.chat_line.append("Welcome, " + self.nickname)
                 self.chat_line.append("Lets Chat, " + self.nickname)
@@ -42,7 +43,6 @@ class Main(QMainWindow,mainwindow_ui.Ui_MainWindow):
                 self.message_line.setEnabled(True)
                 self.changepass_line.setEnabled(True)
                 self.updatepass_button.setEnabled(True)
-                db.updataUser(self.nickname, self.password,True)
                 #MainWindow.onlinenum_label.setText(strpeonum)
             else:
                 self.chat_line.append("This account has been logined")
@@ -90,8 +90,11 @@ class Client:
             try:
                 otherword = self.sock.recv(1024).decode() # socket.recv(recv_size)
                 systemlogin = otherword.split()
+                print(systemlogin[0])
                 if(systemlogin[0] == recvlog):
                     MainWindow.onlinenum_label.setText("目前連天室有 " + str(systemlogin[1]))
+                elif (systemlogin[0] == "kick=="):
+                    os._exit(-1)
                 else:
                     MainWindow.chat_line.append(otherword)
 
