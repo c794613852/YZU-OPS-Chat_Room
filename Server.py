@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import socket
 import threading
+import os
 from time import gmtime, localtime, strftime
 from InitDB import DataBaseChatRoom
 from PyQt5.QtWidgets import QMainWindow,QApplication
@@ -165,6 +166,7 @@ def ui():
 if __name__ == "__main__":
     s = Server('localhost', 5550)
     db = DataBaseChatRoom()
+    #os.system("python Bot.py")
     app=QApplication(sys.argv)
     MainWindow=Main()
     main()

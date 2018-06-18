@@ -1,4 +1,6 @@
+import threading
 from weather import Weather, Unit
+from InitDB import DataBaseChatRoom
 import socket
 
 
@@ -33,7 +35,25 @@ class Bot():
 
             except ConnectionResetError:
                 print('Server is closed!')
+   def login(self):
+        loginSuc = db.queryByuname("bot", "bot")
+        if(loginSuc):
+            online = db.onoffline("bot", "bot")
+            if(online == False):
+                global recvlog
+                db.updataUser("bot", "bot",True)
 
+def main():
+    th0 = threading.Thread(target=bot.recvThreadFunc)
+    th0.setDaemon(True)
+    th0.start()
+    th0.join()
+
+if __name__ == "__main__":
+    bot=Bot('localhost', 5550)
+    db = DataBaseChatRoom()
+    bot.login()
+    main()
 
 
 
