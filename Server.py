@@ -34,11 +34,11 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
 
     def delete(self):
         user=self.user_line.text()
-        self.user_line.setText("")
         db.deleteUser(user)
         self.textBrowser.setText("")
         self.showaccount()
         print(user)
+        self.kick()
 
     def kick(self):
         print(s.mylist)
@@ -47,6 +47,7 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
             if s.nicknameList[c.fileno()] == self.user_line.text():
                 print(s.nicknameList[c.fileno()])
                 c.send(("kick==").encode())
+        self.user_line.setText("")
 
     def showaccount(self):
         account = db.allinformation()
