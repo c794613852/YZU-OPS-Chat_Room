@@ -16,6 +16,7 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
         self.add_button.clicked.connect(self.register)
         self.del_button.clicked.connect(self.delete)
         self.kick_button.clicked.connect(self.kick)
+        self.updateStatus_button.clicked.connect(self.updateStatus)
         self.showaccount()
         #self.kick_button.clicked.connect(self.kick)
 
@@ -34,11 +35,12 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
 
     def delete(self):
         user=self.user_line.text()
+        result = db.collection.find_one({'uname': user})
+        if(result['online']):
+            self.kick()
         db.deleteUser(user)
         self.textBrowser.setText("")
         self.showaccount()
-        print(user)
-        self.kick()
 
     def kick(self):
         print(s.mylist)
@@ -57,6 +59,10 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
                 self.textBrowser.append(people['uname']+" "+"online")
             else:
                 self.textBrowser.append(people['uname']+" "+"offline")
+
+    def updateStatus(self):
+        self.textBrowser.setText("")
+        self.showaccount()
 
 class Server:
     def __init__(self, host, port):
@@ -116,8 +122,6 @@ class Server:
                 if recvedMsg == recvlogin:
                     self.peonum += 1 #plus one to num of people in room
                     self.peonumToClient() #tell everyone the new num of people in the room
-                    #MainWindow.textBrowser.setText("why")
-                    #MainWindow.showaccount()
                 elif recvedMsg:
                     if connNumber not in self.nicknameList:
                         self.nicknameList[connNumber] = recvedMsg.split()[1]
@@ -136,8 +140,6 @@ class Server:
                     self.tellOthers(connNumber, "SYSTEM: " + self.nicknameList[connNumber] + " leave the room")
                     del self.nicknameList[connNumber]
                     self.peonumToClient()
-                    #MainWindow.textBrowser.setText("")
-                    #MainWindow.showaccount()
                 except:
                     pass
 
