@@ -30,20 +30,16 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
             print("password : " + password)
         else:
             print(result)
-        self.nickname_line.setText("")
-        self.password_line.setText("")
+        self.textBrowser.setText("")
         self.showaccount()
 
     def delete(self):
         user=self.user_line.text()
-        userexist = db.checkUserExist(user)
-        if(userexist=="User is exist"):
-            result = db.collection.find_one({'uname': user})
-            print(result['online'])
-            if(result['online']):
-                self.kick()
+        result = db.collection.find_one({'uname': user})
+        if(result['online']):
+            self.kick()
         db.deleteUser(user)
-        self.user_line.setText("")
+        self.textBrowser.setText("")
         self.showaccount()
 
     def kick(self):
@@ -57,7 +53,6 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
 
     def showaccount(self):
         account = db.allinformation()
-        self.textBrowser.setText("")
         for people in account:
             print(people['uname'])
             if(people['online']):
@@ -79,6 +74,7 @@ class Server:
         self.mylist = list()
         self.nicknameList = {}
         self.peonum = 0
+
 
 
     def checkConnection(self):
