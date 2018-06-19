@@ -21,7 +21,6 @@ class Main(QMainWindow,severwindow_ui.Ui_SeverWindow):
         self.kick_button.clicked.connect(self.kick)
         self.updateStatus_button.clicked.connect(self.updateStatus)
         self.showaccount()
-        #self.kick_button.clicked.connect(self.kick)
 
     def register(self):
         user=self.nickname_line.text()
