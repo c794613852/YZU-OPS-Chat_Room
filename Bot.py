@@ -23,8 +23,8 @@ class Bot():
                    if(commmand[2]=="weather"):
                         weather = Weather(unit=Unit.CELSIUS)
                         if(commmand[3]==" "):
-                            place="桃園"
-                        location = weather.lookup_by_location(place)
+                            commmand[3]="桃園"
+                        location = weather.lookup_by_location(commmand[3])
                         print(location)
                         condition = location.condition
                         self.speech=location.location.city+" "+condition.text+" "+condition.temp
