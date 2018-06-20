@@ -103,6 +103,8 @@ class Client:
 
             except ConnectionResetError:
                 print('Server is closed!')
+                db.updataUser(MainWindow.nickname, MainWindow.password,False)
+                os._exit(-1)
 
 def main():
     th0 = threading.Thread(target=ui)
