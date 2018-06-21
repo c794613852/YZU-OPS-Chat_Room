@@ -136,12 +136,25 @@ class Server:
                     if connNumber not in self.nicknameList:
                         self.nicknameList[connNumber] = recvedMsg.split()[1]
                     elif systemlogin[1] == "bot":
-                        bot.recv(recvedMsg)
+                        if(bot.recv(recvedMsg)):
+                           user=systemlogin[0][0:len(systemlogin[0])-1]
+                           for c in s.mylist:
+                               if s.nicknameList[c.fileno()] == user:
+                                    sec='input the password'
+                                    c.send(sec.encode())
+                                    recvedMsg = myconnection.recv(1024).decode()
+                                    smsg=recvedMsg.split()
+                                    name=bot.kick(smsg[1]=='123456')
+                                    if(smsg[1]=='123456'):
+                                        for rc in s.mylist:
+                                            if s.nicknameList[rc.fileno()] ==name:
+                                                rc.send(("kick==").encode())
+
                         for c in self.mylist:
-                           try:
-                               c.send(bot.send().encode())
-                           except:
-                               pass
+                              try:
+                                  c.send(bot.send().encode())
+                              except:
+                                  pass
                     else:
                         pass
                     self.tellOthers(connNumber, recvedMsg )
