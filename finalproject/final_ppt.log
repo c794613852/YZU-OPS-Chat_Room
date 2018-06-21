@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6630 64-bit) (preloaded format=xelatex 2018.6.14)  21 JUN 2018 14:34
+This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6630 64-bit) (preloaded format=xelatex 2018.6.14)  21 JUN 2018 23:41
 entering extended mode
 **./final_ppt.tex
 (final_ppt.tex
@@ -1888,12 +1888,12 @@ Overfull \hbox (2.124pt too wide) has occurred while \output is active
 File: history.jpg Graphic file (type bmp)
 <history.jpg>
 
-Overfull \hbox (33.21275pt too wide) in paragraph at lines 175--175
+Overfull \hbox (30.21274pt too wide) in paragraph at lines 175--175
 [][]  
  []
 
 
-Overfull \vbox (10.841pt too high) detected at line 175
+Overfull \vbox (9.34099pt too high) detected at line 175
  []
 
 
