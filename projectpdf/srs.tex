@@ -52,7 +52,7 @@
         \vspace{1.9cm}
         for\\
         \vspace{1.0cm}
-        $<$名字真難取$>$\\
+        $<$chatroom robot assistant$>$\\
         \vspace{1.0cm}
         \LARGE{Version \myversion approved}\\
         \vspace{1.0cm}
@@ -89,7 +89,7 @@
 \chapter{Introduction}
 
 \section{Purpose}
-$<$\\該文檔首先給出了整個系統的整體網路結構和功能結構的概貌，試圖從總體架構上給出整個系統的 輪廓，然後又對功能需求、性能需求和其它非功能性需求進行了詳細的描述。這些文字和圖形都為了詳細準確地描述用戶的需求，同時也為用戶更容易地理解這些需求的描 述創造了條件。 該文檔詳盡說明了這一軟體產品的需求和規格，這些規格說明是進行設計的基礎，也是編寫測試用例和進行系統測試的主要依據。同時，該文檔也是使用者確定軟體功能需求的主要依據。$>$
+$<$\\該文檔首先提供整個系統的整體網路結構和功能結構的概貌，從總體架構上給出整個系統的 輪廓，然後針對功能需求、性能需求和其它非功能性需求進行了描述。這些文字和圖形都為了詳細準確地描述用戶的需求，同時也為用戶更容易地理解這些需求的描 述創造了條件。 該文檔詳盡說明了這一軟體產品的需求和規格，這些規格說明是進行設計的基礎，也是編寫測試用例和進行系統測試的主要依據。同時，該文檔也是使用者確定軟體功能需求的主要依據。$>$
 
 \iffalse　　%  %\section{Document Conventions}
 $<$\\Describe any standards or typographical conventions that were followed when 
@@ -111,8 +111,8 @@ $>$
 
 \section{Project Scope}
 $<$\\該產品是在積累了豐富業務經驗的基礎上進行開發的，在需求上，充分考慮了具體用戶的實際情況。 本產品主要適用於以下範圍：\\
-（1）	針對各大網路直播平臺和各個應用軟體的聊天群組（例如：line、wechat），該產品可提供敏感詞遮罩，直播間踢人這兩大功能，可大幅度提升使用者的用戶體驗。\\
-（2）	針對線上客服（例如淘寶，微信公眾號），提供針對關鍵字自動回復的功能，可以提高回復速度，讓使用者在第一時間得到回復，並且節省商家人工成本。\\
+（1）	該產品可提供天氣查詢，管理員踢人、匯率查詢等功能，可提升使用者的用戶體驗。\\
+
 $>$
 
 \section{References}
@@ -126,14 +126,15 @@ $>$
 \chapter{Overall Description}
 
 \section{Product Perspective}
-$<$\\大眾娛樂平臺要有良好的發展，用戶體驗是十分關鍵的環節。設想若用戶在觀看直播或聊天時，慢螢幕都是污言穢語，想必心情必定一落千丈。又或是在網路購物時產生一些疑問，向客服諮詢卻久久得不到回復，久而久之便對平臺失望。\\
-使用我們的產品可以有效避免上述情形的發生，大大提升用戶體驗，在現今各大電商、直播平臺競爭激烈的時代，我們的產品能有效提高平臺的競爭力，為商家吸引大量用戶。
+$<$\\大眾娛樂平臺要有良好的發展，用戶體驗是十分關鍵的環節。日常生活中常常需要查詢一些小資訊，諸如天氣、目前匯率等，我們希望把複數的小功能整合進聊天室，讓使用者可以使用簡單的指令，讓機器人回答特定的問題。\\
+使用我們的產品可以減少應用程式切換所需的時間，節省用戶時間，在現今各大電商、直播平臺競爭激烈的時代，我們的產品能有效提高平臺的競爭力，為商家吸引大量用戶。
 $>$
 
 \section{Product Functions}
-$<$\\(一)、敏感詞遮罩 \\
-(二)、自動回復  \\
-(三)、管理員踢人  \\
+$<$\\(一)、 回答特定問題\\
+(二)、管理員踢人  \\
+(三)、  匯率換算\\
+(四)、 天氣查詢\\
 該系統結構圖如下圖所示：
 
 
@@ -159,9 +160,7 @@ $<$\\
 $>$
 
 \section{Operating Environment}
-$<$Describe the environment in which the software will operate, including the 
-hardware platform, operating system and versions, and any other software 
-components or applications with which it must peacefully coexist.$>$
+$<$Python3.$>$
 
 
 
@@ -216,42 +215,16 @@ $>$
 
 
 \chapter{System Features}
-$<$This template illustrates organizing the functional requirements for the 
-product by system features, the major services provided by the product. You may 
-prefer to organize this section by use case, mode of operation, user class, 
-object class, functional hierarchy, or combinations of these, whatever makes the 
-most logical sense for your product.$>$
+$<$我們結合了幾個日常生活中會用到的小功能到聊天室裡，讓使用者可以不用頻繁的切換應用程式就可以得到想要的資訊.$>$
 
-\section{System Feature 1}
-$<$Don’t really say “System Feature 1.” State the feature name in just a few 
-words.$>$
+\section{天氣查詢、匯率查詢、時區查詢}
+$<$輸入bot當開頭，可以指定bot回答特定地點的天氣，包含氣溫、天氣狀況。以及匯率轉換和時區查詢$>$
 
 \subsection{Description and Priority}
-$<$Provide a short description of the feature and indicate whether it is of 
-High, Medium, or Low priority. You could also include specific priority 
-component ratings, such as benefit, penalty, cost, and risk (each rated on a 
-relative scale from a low of 1 to a high of 9).$>$
+$<$就算在聊天室裡也可以即時查詢當地天氣，討論旅遊非常方便，也可以查詢匯率的狀況.$>$
 
-\subsection{Stimulus/Response Sequences}
-$<$List the sequences of user actions and system responses that stimulate the 
-behavior defined for this feature. These will correspond to the dialog elements 
-associated with use cases.$>$
 
-\subsection{Functional Requirements}
-$<$Itemize the detailed functional requirements associated with this feature.  
-These are the software capabilities that must be present in order for the user 
-to carry out the services provided by the feature, or to execute the use case.  
-Include how the product should respond to anticipated error conditions or 
-invalid inputs. Requirements should be concise, complete, unambiguous, 
-verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
-information is not yet available.$>$
 
-$<$Each requirement should be uniquely identified with a sequence number or a 
-meaningful tag of some kind.$>$
-
-REQ-1:	REQ-2:
-
-\section{System Feature 2 (and so on)}
 
 
 \chapter{Other Nonfunctional Requirements}
