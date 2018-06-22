@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6630 64-bit) (preloaded format=xelatex 2018.6.14)  21 JUN 2018 14:34
+This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6630 64-bit) (preloaded format=xelatex 2018.6.14)  22 JUN 2018 00:17
 entering extended mode
 **./final_ppt.tex
 (final_ppt.tex
@@ -1799,8 +1799,8 @@ Overfull \hbox (2.124pt too wide) has occurred while \output is active
 [2
 
 ]
-File: clientui.jpg Graphic file (type bmp)
-<clientui.jpg>
+File: clientui.png Graphic file (type bmp)
+<clientui.png>
 
 Overfull \hbox (2.124pt too wide) has occurred while \output is active
 [][] 
@@ -1816,8 +1816,8 @@ Overfull \hbox (2.124pt too wide) has occurred while \output is active
 [4
 
 ]
-File: serverui.jpg Graphic file (type bmp)
-<serverui.jpg>
+File: serverui.png Graphic file (type bmp)
+<serverui.png>
 
 Overfull \hbox (2.124pt too wide) has occurred while \output is active
 [][] 
@@ -1867,7 +1867,7 @@ Overfull \hbox (2.124pt too wide) has occurred while \output is active
 File: figure1.jpg Graphic file (type bmp)
 <figure1.jpg>
 
-Overfull \vbox (72.06212pt too high) detected at line 163
+Overfull \vbox (71.32053pt too high) detected at line 163
  []
 
 
@@ -1888,12 +1888,12 @@ Overfull \hbox (2.124pt too wide) has occurred while \output is active
 File: history.jpg Graphic file (type bmp)
 <history.jpg>
 
-Overfull \hbox (33.21275pt too wide) in paragraph at lines 175--175
+Overfull \hbox (30.21274pt too wide) in paragraph at lines 175--175
 [][]  
  []
 
 
-Overfull \vbox (10.841pt too high) detected at line 175
+Overfull \vbox (9.34099pt too high) detected at line 175
  []
 
 
@@ -1920,10 +1920,10 @@ Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 178.
 Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 178.
  ) 
 Here is how much of TeX's memory you used:
- 33039 strings out of 427836
- 650840 string characters out of 3148510
- 747248 words of memory out of 3000000
- 36556 multiletter control sequences out of 15000+200000
+ 33049 strings out of 427836
+ 651437 string characters out of 3148510
+ 747387 words of memory out of 3000000
+ 36566 multiletter control sequences out of 15000+200000
  532834 words of font info for 42 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  56i,15n,63p,778b,626s stack positions out of 5000i,500n,10000p,200000b,50000s
