@@ -18,11 +18,12 @@
 \documentclass{scrreprt}
 \usepackage{listings}
 \usepackage{underscore}
-\usepackage{graphicx}
 \usepackage[bookmarks=true]{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+\usepackage{pgfgantt}
 \usepackage{CJKutf8}
+\usepackage{graphicx}
 \hypersetup{
     bookmarks=false,    % show bookmarks bar?
     pdftitle={Software Requirement Specification},    % title
@@ -43,7 +44,6 @@
 %}
 \usepackage{hyperref}
 \begin{document}
-\begin{CJK}{UTF8}{bkai}
 
 \begin{flushright}
     \rule{16cm}{5pt}\vskip1cm
@@ -56,16 +56,18 @@
         \vspace{1.0cm}
         \LARGE{Version \myversion approved}\\
         \vspace{1.0cm}
-         Prepared by :  \\
-	   1031408 劉彥呈\\
-	   1031452 何浩璘\\
-	   1033329 林仕翔\\
-	   1033336 尹法堯\\
-        1041459 梁澤洲\\
+	\begin{CJK}{UTF8}{bkai}
+        		 Prepared by :  \\
+	   	1031408 劉彥呈\\
+	   	1031452 何浩璘\\
+	   	1033329 林仕翔\\
+	   	1033336 尹法堯\\
+        		1041459 梁澤洲\\
         \vspace{1.0cm}
         $<$開放平台軟體 第15組$>$\\
         \vspace{1.0cm}
         \today\\
+	\end{CJK}{UTF8}{bkai}
     \end{bfseries}
 \end{flushright}
 
@@ -74,101 +76,126 @@
 
 \chapter*{Revision History}
 
-\begin{center}
-    \begin{tabular}{|c|c|c|c|}
-        \hline
-	    Name & Date & Reason For Changes & Version\\
-        \hline
-	    21 & 22 & 23 & 24\\
-        \hline
-	    31 & 32 & 33 & 34\\
-        \hline
-    \end{tabular}
-\end{center}
+\begin{CJK}{UTF8}{bkai}
+	\begin{center}
+    		\begin{tabular}{|c|c|c|c|c|}
+        		\hline
+	    	學號 & Name & Date & Reason For Changes & Version\\
+        		\hline
+	   	1031408 & 劉彥呈 & 5/19 & 顯示時間 & 1\\
+        		\hline
+	    	1033336 & 尹法堯 & 5/19 & Client進入訊息 & 2\\
+        		\hline
+		1031408 & 劉彥呈 & 5/20 & Client離開訊息 & 3\\
+        		\hline
+		1033336 & 尹法堯 & 5/20 & 區分相同的name & 4\\
+        		\hline
+		1033336 & 尹法堯 & 6/14 & 完成資料庫所有功能和Server新增帳號 & 5\\
+		\hline
+		1031408 & 劉彥呈 & 6/14 & 完成資料庫與介面的互動 & 5\\
+        		\hline
+		1031408 & 劉彥呈 & 6/17 & 顯示再現人數 & 7\\
+        		\hline
+		1033336 & 尹法堯 & 6/18 &  Server刪除帳號& 8\\
+        		\hline
+		1031408 & 劉彥呈 & 6/19 & Server踢除Client & 9\\
+        		\hline
+		1031452 & 何浩璘 & 6/19 & Bot加入以及weather-api的使用 & 10\\
+        		\hline
+		1031408 & 劉彥呈 & 6/19 & 更換介面的顏色 & 11\\
+        		\hline
+		1031452 & 何浩璘 & 6/23 & Bot增加匯率轉換-api和顯示日期區域時間 & 12\\
+        		\hline
+    		\end{tabular}
+	\end{center}
+\end{CJK}{UTF8}{bkai}
 
 \chapter{Introduction}
 
 \section{Purpose}
-$<$\\該文檔首先提供整個系統的整體網路結構和功能結構的概貌，從總體架構上給出整個系統的 輪廓，然後針對功能需求、性能需求和其它非功能性需求進行了描述。這些文字和圖形都為了詳細準確地描述用戶的需求，同時也為用戶更容易地理解這些需求的描 述創造了條件。 該文檔詳盡說明了這一軟體產品的需求和規格，這些規格說明是進行設計的基礎，也是編寫測試用例和進行系統測試的主要依據。同時，該文檔也是使用者確定軟體功能需求的主要依據。$>$
+$<$Identify the product whose software requirements are specified in this 
+document, including the revision or release number. Describe the scope of the 
+product that is covered by this SRS, particularly if this SRS describes only 
+part of the system or a single subsystem.$>$
 
-\iffalse　　%  %\section{Document Conventions}
-$<$\\Describe any standards or typographical conventions that were followed when 
+\section{Document Conventions}
+$<$Describe any standards or typographical conventions that were followed when 
 writing this SRS, such as fonts or highlighting that have special significance.  
 For example, state whether priorities  for higher-level requirements are assumed 
 to be inherited by detailed requirements, or whether every requirement statement 
 is to have its own priority.$>$
-\fi　　　%
 
 \section{Intended Audience and Reading Suggestions}
-$<$\\  本文檔的主要內容共分 4 部分：綜合描述、外部介面描述、系統特性和非功能性需求。綜合描述部分主要對系統的整體結構進行了大致的介紹；外部介面需求部分對使用者介面、軟體 介面、硬體介面和通訊介面等進行了詳細的描述；系統特性部分對系統的功能需求進行了詳細描述；非 功能性需求部分對非功能需求進行了詳細的描述。 本文檔面向多種讀者物件：\\ 
-（1）專案經理：專案經理可以根據該文檔瞭解預期產品的功能，並據此進行系統設計。 \\
-（2）設計員：對需求進行分析，並設計出系統，包括資料庫的設計。 \\
-（3）程式師：配合《設計報告》，瞭解系統功能，編寫《使用者手冊》。 \\（4）測試員：根據本文檔對軟體產品進行功能性測試和非功能性測試。 \\（5）銷售人員：瞭解預期產品的功能和性能。 \\
-（6）用戶：瞭解預期產品的功能和性能，並與分析人員一起對整個需求進行討論和協商。 \\
-（7）其他人員：如部門領導、公司領導等可以據此瞭解產品的功能和性能。 \\
-在閱讀本文檔時，首先要瞭解產品的功能概貌，然後可以根據自身的需要對每一功能進行適當的了 解。 
-$>$
+$<$Describe the different types of reader that the document is intended for, 
+such as developers, project managers, marketing staff, users, testers, and 
+documentation writers. Describe what the rest of this SRS contains and how it is 
+organized. Suggest a sequence for reading the document, beginning with the 
+overview sections and proceeding through the sections that are most pertinent to 
+each reader type.$>$
 
 \section{Project Scope}
-$<$\\該產品是在積累了豐富業務經驗的基礎上進行開發的，在需求上，充分考慮了具體用戶的實際情況。 本產品主要適用於以下範圍：\\
-（1）	該產品可提供天氣查詢，管理員踢人、匯率查詢等功能，可提升使用者的用戶體驗。\\
-
-$>$
+$<$Provide a short description of the software being specified and its purpose, 
+including relevant benefits, objectives, and goals. Relate the software to 
+corporate goals or business strategies. If a separate vision and scope document 
+is available, refer to it rather than duplicating its contents here.$>$
 
 \section{References}
-$<$\\
-https://wenku.baidu.com/view/083b1ffafab069dc50220150.html\\
-http://www.runoob.com/mongodb/mongodb-databases-documents-collections.html\\
-https://docs.mongodb.com/\\
-$>$
+$<$List any other documents or Web addresses to which this SRS refers. These may 
+include user interface style guides, contracts, standards, system requirements 
+specifications, use case documents, or a vision and scope document. Provide 
+enough information so that the reader could access a copy of each reference, 
+including title, author, version number, date, and source or location.$>$
 
 
 \chapter{Overall Description}
 
 \section{Product Perspective}
-$<$\\大眾娛樂平臺要有良好的發展，用戶體驗是十分關鍵的環節。日常生活中常常需要查詢一些小資訊，諸如天氣、目前匯率等，我們希望把複數的小功能整合進聊天室，讓使用者可以使用簡單的指令，讓機器人回答特定的問題。\\
-使用我們的產品可以減少應用程式切換所需的時間，節省用戶時間，在現今各大電商、直播平臺競爭激烈的時代，我們的產品能有效提高平臺的競爭力，為商家吸引大量用戶。
-$>$
+$<$Describe the context and origin of the product being specified in this SRS.  
+For example, state whether this product is a follow-on member of a product 
+family, a replacement for certain existing systems, or a new, self-contained 
+product. If the SRS defines a component of a larger system, relate the 
+requirements of the larger system to the functionality of this software and 
+identify interfaces between the two. A simple diagram that shows the major 
+components of the overall system, subsystem interconnections, and external 
+interfaces can be helpful.$>$
 
 \section{Product Functions}
-$<$\\(一)、 回答特定問題\\
-(二)、管理員踢人  \\
-(三)、  匯率換算\\
-(四)、 天氣查詢\\
-該系統結構圖如下圖所示：
-
-
-$>$
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=7cm]{structure.jpg}
-\end{center}
-\caption{It's system structure.}
-\label{fig:1}
-\end{figure}
-
-
-
-
-
+$<$Summarize the major functions the product must perform or must let the user 
+perform. Details will be provided in Section 3, so only a high level summary 
+(such as a bullet list) is needed here. Organize the functions to make them 
+understandable to any reader of the SRS. A picture of the major groups of 
+related requirements and how they relate, such as a top level data flow diagram 
+or object class diagram, is often effective.$>$
 
 \section{User Classes and Characteristics}
-$<$\\
-(一)、實況收看與線上聊天用戶：該類使用者需要在與其他使用者交流時有好的環境\\
-(二)、網路購物使用者或線上查詢用戶：此類使用者提出的問題需要在短時間內被回復\\
-$>$
+$<$Identify the various user classes that you anticipate will use this product.  
+User classes may be differentiated based on frequency of use, subset of product 
+functions used, technical expertise, security or privilege levels, educational 
+level, or experience. Describe the pertinent characteristics of each user class.  
+Certain requirements may pertain only to certain user classes. Distinguish the 
+most important user classes for this product from those who are less important 
+to satisfy.$>$
 
 \section{Operating Environment}
-$<$Python3.$>$
+$<$Describe the environment in which the software will operate, including the 
+hardware platform, operating system and versions, and any other software 
+components or applications with which it must peacefully coexist.$>$
 
+\section{Design and Implementation Constraints}
+$<$Describe any items or issues that will limit the options available to the 
+developers. These might include: corporate or regulatory policies; hardware 
+limitations (timing requirements, memory requirements); interfaces to other 
+applications; specific technologies, tools, and databases to be used; parallel 
+operations; language requirements; communications protocols; security 
+considerations; design conventions or programming standards (for example, if the 
+customer’s organization will be responsible for maintaining the delivered 
+software).$>$
 
-
-\iffalse　　%  %
 \section{User Documentation}
 $<$List the user documentation components (such as user manuals, on-line help, 
 and tutorials) that will be delivered along with the software. Identify any 
 known user documentation delivery formats or standards.$>$
+
 \section{Assumptions and Dependencies}
 
 $<$List any assumed factors (as opposed to known facts) that could affect the 
@@ -179,77 +206,185 @@ are incorrect, are not shared, or change. Also identify any dependencies the
 project has on external factors, such as software components that you intend to 
 reuse from another project, unless they are already documented elsewhere (for 
 example, in the vision and scope document or the project plan).$>$
-\fi　　　%
+
+
+
+\begin{ganttchart}[%Specs
+     y unit title=0.5cm,
+     y unit chart=0.6cm,
+     vgrid,hgrid,
+     title height=1,
+%     title/.style={fill=none},
+     title label font=\bfseries\normalsize,
+     bar/.style={fill=blue},
+     bar height=0.5,
+%   progress label text={},
+     group right shift=0,
+     group top shift=0.5,
+     group height=.3,
+     group peaks width={0.2},
+     inline]{1}{24}
+    %labels
+    \gantttitle{Title}{24}\\  % title 1
+	\gantttitle{1}{2}                      % title 3
+	\gantttitle{2}{2}
+	\gantttitle{3}{2}
+    	\gantttitle{4}{2}
+	\gantttitle{5}{2}
+	\gantttitle{6}{2}
+	\gantttitle{7}{2}
+	\gantttitle{8}{2}
+	\gantttitle{9}{2}
+	\gantttitle{10}{2}
+	\gantttitle{11}{2}
+	\gantttitle{12}{2}\\
+    % Setting group if any
+    \ganttgroup[inline=false]{A}{1}{12}\\ 
+    \ganttbar[inline=false, bar progress label node/.append style={below left= 10pt and 7pt}]{\small a}{3}{4}\\ 
+      \ganttmilestone[inline=false]{\small b}{6}\\ 
+\end{ganttchart}
+
 
 \chapter{External Interface Requirements}
 
 \section{User Interfaces}
-$<$
+$<$Describe the logical characteristics of each interface between the software 
+product and the users. This may include sample screen images, any GUI standards 
+or product family style guides that are to be followed, screen layout 
+constraints, standard buttons and functions (e.g., help) that will appear on 
+every screen, keyboard shortcuts, error message display standards, and so on.  
+Define the software components for which a user interface is needed. Details of 
+the user interface design should be documented in a separate user interface 
+specification.$>$
 
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=7cm]{interface3.jpg}
-\end{center}
-\caption{sever interface}
-\label{fig:2}
-\end{figure}
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=7cm]{interface1.jpg}
-\end{center}
-\caption{client interface}
-\label{fig:3}
-\end{figure}
-$>$
-
-
+\section{Hardware Interfaces}
+$<$Describe the logical and physical characteristics of each interface between 
+the software product and the hardware components of the system. This may include 
+the supported device types, the nature of the data and control interactions 
+between the software and the hardware, and communication protocols to be 
+used.$>$
 
 \section{Software Interfaces}
-$<$
-	client 與mongo數據庫連接，實時上傳用戶資料\\
-	sever  與mongo數據庫連接，處理各個使用者上傳的資料并做回應\\
-$>$
+$<$Describe the connections between this product and other specific software 
+components (name and version), including databases, operating systems, tools, 
+libraries, and integrated commercial components. Identify the data items or 
+messages coming into the system and going out and describe the purpose of each.  
+Describe the services needed and the nature of communications. Refer to 
+documents that describe detailed application programming interface protocols.  
+Identify data that will be shared across software components. If the data 
+sharing mechanism must be implemented in a specific way (for example, use of a 
+global data area in a multitasking operating system), specify this as an 
+implementation constraint.$>$
 
-
+\section{Communications Interfaces}
+$<$Describe the requirements associated with any communications functions 
+required by this product, including e-mail, web browser, network server 
+communications protocols, electronic forms, and so on. Define any pertinent 
+message formatting. Identify any communication standards that will be used, such 
+as FTP or HTTP. Specify any communication security or encryption issues, data 
+transfer rates, and synchronization mechanisms.$>$
 
 
 \chapter{System Features}
-$<$我們結合了幾個日常生活中會用到的小功能到聊天室裡，讓使用者可以不用頻繁的切換應用程式就可以得到想要的資訊.$>$
+$<$This template illustrates organizing the functional requirements for the 
+product by system features, the major services provided by the product. You may 
+prefer to organize this section by use case, mode of operation, user class, 
+object class, functional hierarchy, or combinations of these, whatever makes the 
+most logical sense for your product.$>$
 
-\section{天氣查詢、匯率查詢、時區查詢}
-$<$輸入bot當開頭，可以指定bot回答特定地點的天氣，包含氣溫、天氣狀況。以及匯率轉換和時區查詢$>$
+\section{System Feature 1}
+$<$Don’t really say “System Feature 1.” State the feature name in just a few 
+words.$>$
 
 \subsection{Description and Priority}
-$<$就算在聊天室裡也可以即時查詢當地天氣，討論旅遊非常方便，也可以查詢匯率的狀況.$>$
+$<$Provide a short description of the feature and indicate whether it is of 
+High, Medium, or Low priority. You could also include specific priority 
+component ratings, such as benefit, penalty, cost, and risk (each rated on a 
+relative scale from a low of 1 to a high of 9).$>$
 
+\subsection{Stimulus/Response Sequences}
+$<$List the sequences of user actions and system responses that stimulate the 
+behavior defined for this feature. These will correspond to the dialog elements 
+associated with use cases.$>$
 
+\subsection{Functional Requirements}
+$<$Itemize the detailed functional requirements associated with this feature.  
+These are the software capabilities that must be present in order for the user 
+to carry out the services provided by the feature, or to execute the use case.  
+Include how the product should respond to anticipated error conditions or 
+invalid inputs. Requirements should be concise, complete, unambiguous, 
+verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
+information is not yet available.$>$
 
+$<$Each requirement should be uniquely identified with a sequence number or a 
+meaningful tag of some kind.$>$
+
+REQ-1:	REQ-2:
+
+\section{System Feature 2 (and so on)}
 
 
 \chapter{Other Nonfunctional Requirements}
 
 \section{Performance Requirements}
-$<$\\（1）系統運行穩定。 \\
-（2）系統資料安全。\\ 
-（3）用戶端回應快捷，速度能達到業務的基本要求。\\ （4）系統具有一定的容錯和抗干擾能力，在非硬體故障或非通訊故障時，系統能夠保證終端能正 常運行。\\ （5）擴展性強，能夠滿足將來業務和財務擴展需要\\
-$>$
+$<$If there are performance requirements for the product under various 
+circumstances, state them here and explain their rationale, to help the 
+developers understand the intent and make suitable design choices. Specify the 
+timing relationships for real time systems. Make such requirements as specific 
+as possible. You may need to state performance requirements for individual 
+functional requirements or features.$>$
 
+\section{Safety Requirements}
+$<$Specify those requirements that are concerned with possible loss, damage, or 
+harm that could result from the use of the product. Define any safeguards or 
+actions that must be taken, as well as actions that must be prevented. Refer to 
+any external policies or regulations that state safety issues that affect the 
+product’s design or use. Define any safety certifications that must be 
+satisfied.$>$
 
 \section{Security Requirements}
-$<$\\（1）許可權控制 根據不同使用者角色，設置相應許可權，用戶的重要操作都做相應的日誌記錄以備查看，沒有許可權的用 戶禁止使用系統。 \\
-（2）重要資料加密 本系統對一些重要的資料按一定的演算法進行加密，如使用者口令、重要參數等。\\
-（3）資料備份 允許使用者進行資料的備份和恢復，以彌補資料的破壞和丟失。\\$>$
+$<$Specify any requirements regarding security or privacy issues surrounding use 
+of the product or protection of the data used or created by the product. Define 
+any user identity authentication requirements. Refer to any external policies or 
+regulations containing security issues that affect the product. Define any 
+security or privacy certifications that must be satisfied.$>$
 
 \section{Software Quality Attributes}
-$<$\\（1）記錄日誌 本系統應該能夠記錄系統運行時所發生的所有錯誤，包括本機錯誤和網路錯誤。這些錯誤記錄便於 查找錯誤的原因。 \\
-（2）驗證許可權 本系統的所有功能都應該進行功能許可權、部門許可權的判斷和控制。 \\
-（3）控制必錄入項
-本系統能夠對必須錄入的專案進行控制，使使用者能夠確保資訊錄入的完整。 \\
-（4）方便操作 儘量從用戶角度出發，以方便使用本產品。如：錄入資訊時，敲入回車鍵游標的自動跳轉、輸 入法的自動轉換，資訊檢索時輸入漢語簡拼快速檢索到結果等。 \\
-（5）用戶可自訂 為了滿足業務的不斷變化，一些重要的參數應該可以靈活設置。\\
-$>$
+$<$Specify any additional quality characteristics for the product that will be 
+important to either the customers or the developers. Some to consider are: 
+adaptability, availability, correctness, flexibility, interoperability, 
+maintainability, portability, reliability, reusability, robustness, testability, 
+and usability. Write these to be specific, quantitative, and verifiable when 
+possible. At the least, clarify the relative preferences for various attributes, 
+such as ease of use over ease of learning.$>$
+
+\section{Business Rules}
+$<$List any operating principles about the product, such as which individuals or 
+roles can perform which functions under specific circumstances. These are not 
+functional requirements in themselves, but they may imply certain functional 
+requirements to enforce the rules.$>$
 
 
-\end{CJK}
+\chapter{Other Requirements}
+$<$Define any other requirements not covered elsewhere in the SRS. This might 
+include database requirements, internationalization requirements, legal 
+requirements, reuse objectives for the project, and so on. Add any new sections 
+that are pertinent to the project.$>$
+
+\section{Appendix A: Glossary}
+%see https://en.wikibooks.org/wiki/LaTeX/Glossary
+$<$Define all the terms necessary to properly interpret the SRS, including 
+acronyms and abbreviations. You may wish to build a separate glossary that spans 
+multiple projects or the entire organization, and just include terms specific to 
+a single project in each SRS.$>$
+
+\section{Appendix B: Analysis Models}
+$<$Optionally, include any pertinent analysis models, such as data flow 
+diagrams, class diagrams, state-transition diagrams, or entity-relationship 
+diagrams.$>$
+
+\section{Appendix C: To Be Determined List}
+$<$Collect a numbered list of the TBD (to be determined) references that remain 
+in the SRS so they can be tracked to closure.$>$
+
 \end{document}
