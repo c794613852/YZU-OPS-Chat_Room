@@ -67,7 +67,7 @@
         $<$開放平台軟體 第15組$>$\\
         \vspace{1.0cm}
         \today\\
-	\end{CJK}{UTF8}{bkai}
+	\end{CJK}
     \end{bfseries}
 \end{flushright}
 
@@ -108,15 +108,13 @@
         		\hline
     		\end{tabular}
 	\end{center}
-\end{CJK}{UTF8}{bkai}
+
 
 \chapter{Introduction}
 
 \section{Purpose}
-$<$Identify the product whose software requirements are specified in this 
-document, including the revision or release number. Describe the scope of the 
-product that is covered by this SRS, particularly if this SRS describes only 
-part of the system or a single subsystem.$>$
+該文件提供cahtroom robot assistant Version12的相關說明，包含改產品的開發理念、最終
+成果，產品的提供對象及適用範圍，系統的程式碼架構，不同物件之間的上下關係，程式運行環境以及產品特色
 
 \section{Document Conventions}
 $<$Describe any standards or typographical conventions that were followed when 
@@ -126,25 +124,25 @@ to be inherited by detailed requirements, or whether every requirement statement
 is to have its own priority.$>$
 
 \section{Intended Audience and Reading Suggestions}
-$<$Describe the different types of reader that the document is intended for, 
-such as developers, project managers, marketing staff, users, testers, and 
-documentation writers. Describe what the rest of this SRS contains and how it is 
-organized. Suggest a sequence for reading the document, beginning with the 
-overview sections and proceeding through the sections that are most pertinent to 
-each reader type.$>$
+本文件適合以下職位的人員觀看，部分內容須有程式邏輯相關知識: \\
+（1）專案經理：專案經理可以根據該文檔瞭解預期產品的功能，以此進行系統設計。 \\
+（2）設計員：對需求進行分析，並設計出系統，包括資料庫的設計。 \\
+（3）程式師：瞭解系統功能，對後續更新版本或產品維護提供程式架構。 \\
+（4）測試員：根據本文檔對軟體產品進行功能性測試和非功能性測試。 \\
+（5）銷售人員：瞭解預期產品的功能和性能。 \\
+（6）用戶：瞭解預期產品的功能和性能，與分析人員對整個需求進行討論和協商。 \\
+
 
 \section{Project Scope}
-$<$Provide a short description of the software being specified and its purpose, 
-including relevant benefits, objectives, and goals. Relate the software to 
-corporate goals or business strategies. If a separate vision and scope document 
-is available, refer to it rather than duplicating its contents here.$>$
+該產品的開發理念為節省使用者在聊天室與夥伴聊天時，為查詢生活中的小資訊而必須頻繁切換應用程式的時間
+，希望使用者可以在與夥伴聊天時，在時間上有很好的使用者體驗，或者討論單日行的旅遊，或者與分隔兩地的朋友聊天時，
+可以方便的查詢當地天氣相關資訊以提供聊天話題。
 
 \section{References}
-$<$List any other documents or Web addresses to which this SRS refers. These may 
-include user interface style guides, contracts, standards, system requirements 
-specifications, use case documents, or a vision and scope document. Provide 
-enough information so that the reader could access a copy of each reference, 
-including title, author, version number, date, and source or location.$>$
+1. https://pypi.org/project/weather-api/ \\
+2. https://pypi.org/project/currency.converter/ \\
+3. http://pyqt.sourceforge.net/Docs/PyQt5/ \\
+
 
 
 \chapter{Overall Description}
@@ -177,9 +175,11 @@ most important user classes for this product from those who are less important
 to satisfy.$>$
 
 \section{Operating Environment}
-$<$Describe the environment in which the software will operate, including the 
-hardware platform, operating system and versions, and any other software 
-components or applications with which it must peacefully coexist.$>$
+1. OS: Window7 以上版本 (未在其他作業系統測試過) \\
+2. 開發語言: python3 \\
+3. 使用python api: weather-api, currency_converter \\
+4. 其他python開發套件: socket, threading, os, sys, time, PyQt5 \\
+5. 資料庫: mongoDB
 
 \section{Design and Implementation Constraints}
 $<$Describe any items or issues that will limit the options available to the 
@@ -387,4 +387,5 @@ diagrams.$>$
 $<$Collect a numbered list of the TBD (to be determined) references that remain 
 in the SRS so they can be tracked to closure.$>$
 
+\end{CJK}
 \end{document}
