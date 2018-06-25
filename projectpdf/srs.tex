@@ -248,14 +248,21 @@ example, in the vision and scope document or the project plan).$>$
 \chapter{External Interface Requirements}
 
 \section{User Interfaces}
-$<$Describe the logical characteristics of each interface between the software 
-product and the users. This may include sample screen images, any GUI standards 
-or product family style guides that are to be followed, screen layout 
-constraints, standard buttons and functions (e.g., help) that will appear on 
-every screen, keyboard shortcuts, error message display standards, and so on.  
-Define the software components for which a user interface is needed. Details of 
-the user interface design should be documented in a separate user interface 
-specification.$>$
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=15cm]{interface1.png}
++\end{center}
+\caption{sever interface}
+\label{fig:2}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=15cm]{interface2.png}
+\end{center}
+\caption{client interface}
+\label{fig:3}
+\end{figure}
 
 \section{Hardware Interfaces}
 $<$Describe the logical and physical characteristics of each interface between 
@@ -265,16 +272,17 @@ between the software and the hardware, and communication protocols to be
 used.$>$
 
 \section{Software Interfaces}
-$<$Describe the connections between this product and other specific software 
-components (name and version), including databases, operating systems, tools, 
-libraries, and integrated commercial components. Identify the data items or 
-messages coming into the system and going out and describe the purpose of each.  
-Describe the services needed and the nature of communications. Refer to 
-documents that describe detailed application programming interface protocols.  
-Identify data that will be shared across software components. If the data 
-sharing mechanism must be implemented in a specific way (for example, use of a 
-global data area in a multitasking operating system), specify this as an 
-implementation constraint.$>$
+一、 資料庫 \\
+(1) mongoDB 3.6 : 用於管理帳號密碼以及狀態資訊 \\
+二、python 套件 \\
+(1) socket : 用於處理server與client之間的訊息傳遞 \\
+(2) threading : 用與處理接收訊息、傳遞訊息、GUI之間的線程管理 \\
+(3) os : 用於強制讓程式結束運作\\
+(4) time : 用於顯示發送或接收訊息時，當下的時間資訊\\
+(5) PyQt5 5.10.1 : 用於呈現server與client的UI介面、按鈕事件控制\\
+(6) pymongo 3.6.4 : python用於控制mongoDB的函示庫\\
+(7) weather-api 1.0.4 : 用於取得某地的天氣資訊，輸入為地區名稱，輸出會當地溫度、天氣狀況、濕度等資訊\\
+(8) CurrencyConverter 0.13.5 : 用於轉換兩個不同的貨幣，輸入為金額、原始貨幣、轉換後貨幣，輸出為轉換後貨幣的金額 \\
 
 \section{Communications Interfaces}
 $<$Describe the requirements associated with any communications functions 
