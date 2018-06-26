@@ -303,35 +303,22 @@ prefer to organize this section by use case, mode of operation, user class,
 object class, functional hierarchy, or combinations of these, whatever makes the 
 most logical sense for your product.$>$
 
-\section{System Feature 1}
-$<$Don’t really say “System Feature 1.” State the feature name in just a few 
-words.$>$
+\section{Fast Search Weather and Exchange rate Information}
+該特色可以幫助使用者快速的取得特定地區的天氣資訊以及兩個不同貨幣之間的貨幣量值轉換
 
 \subsection{Description and Priority}
-$<$Provide a short description of the feature and indicate whether it is of 
-High, Medium, or Low priority. You could also include specific priority 
-component ratings, such as benefit, penalty, cost, and risk (each rated on a 
-relative scale from a low of 1 to a high of 9).$>$
+基於希望使用者可以直接在聊天室取得簡單的資訊並節省時間的目的，我們初步完成了能查詢天氣資訊和匯率轉換的功能。這兩項功能的好處是，假如三五好友利用閒暇的時間在討論想去哪裡玩時，可以直接向連天室的機器人詢問當地氣候，可以讓連天室的討論快速的進行下去，又或者與分隔兩地的人交談時，可以快速的查詢對方當地的氣候，順利的找到話題並繼續聊天。匯率的部分可以在討論該去哪個國家玩時，或者已經決定要去哪個國家時，可以方便的查詢目前的匯率決定換錢的時機，這兩個特色可以簡單的就在聊天室向機器人詢問取得，而不需要再切換額外的應用程式查詢。
 
 \subsection{Stimulus/Response Sequences}
-$<$List the sequences of user actions and system responses that stimulate the 
-behavior defined for this feature. These will correspond to the dialog elements 
-associated with use cases.$>$
+以下舉例使用者實際上需要輸入的句子以及得到的答案: \\
+(1) 使用者輸入 - bot weather 桃園 	機器人回復 - Taoyuan City Mostly Clear 27\\
+表示桃園目前的天氣晴朗，並且溫度是27度\\
+(2) 使用者輸入 - bot convert 1000 JPY USD 		機器人回復 - 1000 JPY=9.065600246097056 USD\\
+使用首先輸入bot convert，接著輸入須轉換金額，接著輸入轉換的原始貨幣再輸入轉換後貨幣，以上面的例子，我們可以得到1000日幣約等於9美元\\
 
 \subsection{Functional Requirements}
-$<$Itemize the detailed functional requirements associated with this feature.  
-These are the software capabilities that must be present in order for the user 
-to carry out the services provided by the feature, or to execute the use case.  
-Include how the product should respond to anticipated error conditions or 
-invalid inputs. Requirements should be concise, complete, unambiguous, 
-verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
-information is not yet available.$>$
-
-$<$Each requirement should be uniquely identified with a sequence number or a 
-meaningful tag of some kind.$>$
-
-REQ-1:	REQ-2:
-
+(1) 詢問氣候 : 使用者登入後在client端的UI上輸入 --- bot weather 桃園 --- 指令，bot幫助程式判斷我現在要詢問的對象是機器人，接著weather代表要詢問的事情是天氣的資訊，地點是桃園，server收到訊息後，從指令中取得weather-api所需的字句，取得答案後將答案送給client，client進而把取得的資訊顯示在UI上\\
+(2) 詢問匯率轉換 : 使用者在client端的UI輸入 ---  bot convert 1000 JPY USD --- 指令，bot幫助程式判斷我現在要詢問的對象是機器人，接著convert代表要詢問的是貨幣的轉換，需要轉換的金額是1000，原始貨幣是日圓，轉換後貨幣是美元，server收到訊息後，從指令中取得CurrencyConverter所需的字句，取得答案後將答案送給client，client進而把取得的資訊顯示在UI上\\
 \section{System Feature 2 (and so on)}
 
 
