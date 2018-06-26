@@ -319,7 +319,7 @@ most logical sense for your product.$>$
 \subsection{Functional Requirements}
 (1) 詢問氣候 : 使用者登入後在client端的UI上輸入 --- bot weather 桃園 --- 指令，bot幫助程式判斷我現在要詢問的對象是機器人，接著weather代表要詢問的事情是天氣的資訊，地點是桃園，server收到訊息後，從指令中取得weather-api所需的字句，取得答案後將答案送給client，client進而把取得的資訊顯示在UI上\\
 (2) 詢問匯率轉換 : 使用者在client端的UI輸入 ---  bot convert 1000 JPY USD --- 指令，bot幫助程式判斷我現在要詢問的對象是機器人，接著convert代表要詢問的是貨幣的轉換，需要轉換的金額是1000，原始貨幣是日圓，轉換後貨幣是美元，server收到訊息後，從指令中取得CurrencyConverter所需的字句，取得答案後將答案送給client，client進而把取得的資訊顯示在UI上\\
-\section{System Feature 2 (and so on)}
+
 
 
 \chapter{Other Nonfunctional Requirements}
@@ -333,19 +333,12 @@ as possible. You may need to state performance requirements for individual
 functional requirements or features.$>$
 
 \section{Safety Requirements}
-$<$Specify those requirements that are concerned with possible loss, damage, or 
-harm that could result from the use of the product. Define any safeguards or 
-actions that must be taken, as well as actions that must be prevented. Refer to 
-any external policies or regulations that state safety issues that affect the 
-product’s design or use. Define any safety certifications that must be 
-satisfied.$>$
+Client在發送訊息時，有兩個指令會造成錯誤。第一個是systeM==!!，是使用者登入時，告訴Server現在有一個用戶要登入了，並統計人數，告訴所有的Client現在的在線人數是多少；第二個是kick==，它是Server會發送訊息告訴Client，經由Client辨別，來決定是否主動斷開連線。\\
+在Server介面時，當有兩個以上使用者在登入時，要等待所有使用者登入完畢，不能有一位登入，其他還未登入時，使用Kick功能，這會造成Server的損壞。\\
+
 
 \section{Security Requirements}
-$<$Specify any requirements regarding security or privacy issues surrounding use 
-of the product or protection of the data used or created by the product. Define 
-any user identity authentication requirements. Refer to any external policies or 
-regulations containing security issues that affect the product. Define any 
-security or privacy certifications that must be satisfied.$>$
+經由資料庫的比對是否有相對應的nickname和password。若有的話，則會顯示登入成功；若失敗的話，則會顯示帳號密碼錯誤。
 
 \section{Software Quality Attributes}
 $<$Specify any additional quality characteristics for the product that will be 
