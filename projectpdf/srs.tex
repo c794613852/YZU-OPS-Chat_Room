@@ -333,12 +333,14 @@ as possible. You may need to state performance requirements for individual
 functional requirements or features.$>$
 
 \section{Safety Requirements}
-Client在發送訊息時，有兩個指令會造成錯誤。第一個是systeM==!!，是使用者登入時，告訴Server現在有一個用戶要登入了，並統計人數，告訴所有的Client現在的在線人數是多少；第二個是kick==，它是Server會發送訊息告訴Client，經由Client辨別，來決定是否主動斷開連線。\\
+Client在發送訊息時，會有兩個指令會造成錯誤：\\
+(1)systeM==!!：是使用者登入時，告訴Server現在有一個用戶要登入了，並統計人數，告訴所有的Client現在的在線人數是多少。\\
+(2)kick==：它是Server會發送訊息告訴Client，經由Client辨別，來決定是否主動斷開連線。\\
 在Server介面時，當有兩個以上使用者在登入時，要等待所有使用者登入完畢，不能有一位登入，其他還未登入時，使用Kick功能，這會造成Server的損壞。\\
 
 
 \section{Security Requirements}
-經由資料庫的比對是否有相對應的nickname和password。若有的話，則會顯示登入成功；若失敗的話，則會顯示帳號密碼錯誤。
+目前只有針對帳號密碼作審核，輸入錯誤將會有訊息顯示在client端的UI要求重輸，沒有其他包含針對資料庫或連線進行惡意攻擊的防護措施
 
 \section{Software Quality Attributes}
 $<$Specify any additional quality characteristics for the product that will be 
