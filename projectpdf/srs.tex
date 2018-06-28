@@ -196,40 +196,6 @@ to satisfy.$>$
 
 
 
-\begin{ganttchart}[%Specs
-     y unit title=0.5cm,
-     y unit chart=0.6cm,
-     vgrid,hgrid,
-     title height=1,
-%     title/.style={fill=none},
-     title label font=\bfseries\normalsize,
-     bar/.style={fill=blue},
-     bar height=0.5,
-%   progress label text={},
-     group right shift=0,
-     group top shift=0.5,
-     group height=.3,
-     group peaks width={0.2},
-     inline]{1}{24}
-    %labels
-    \gantttitle{Title}{24}\\  % title 1
-	\gantttitle{1}{2}                      % title 3
-	\gantttitle{2}{2}
-	\gantttitle{3}{2}
-    	\gantttitle{4}{2}
-	\gantttitle{5}{2}
-	\gantttitle{6}{2}
-	\gantttitle{7}{2}
-	\gantttitle{8}{2}
-	\gantttitle{9}{2}
-	\gantttitle{10}{2}
-	\gantttitle{11}{2}
-	\gantttitle{12}{2}\\
-    % Setting group if any
-    \ganttgroup[inline=false]{A}{1}{12}\\ 
-    \ganttbar[inline=false, bar progress label node/.append style={below left= 10pt and 7pt}]{\small a}{3}{4}\\ 
-      \ganttmilestone[inline=false]{\small b}{6}\\ 
-\end{ganttchart}
 
 
 \chapter{External Interface Requirements}
