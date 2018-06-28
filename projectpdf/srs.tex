@@ -185,30 +185,14 @@ to satisfy.$>$
 5. 資料庫: mongoDB
 
 \section{Design and Implementation Constraints}
-$<$Describe any items or issues that will limit the options available to the 
-developers. These might include: corporate or regulatory policies; hardware 
-limitations (timing requirements, memory requirements); interfaces to other 
-applications; specific technologies, tools, and databases to be used; parallel 
-operations; language requirements; communications protocols; security 
-considerations; design conventions or programming standards (for example, if the 
-customer’s organization will be responsible for maintaining the delivered 
-software).$>$
+本產品由自由團隊開發，不存在可能限制產品的開發項目之公司相關規定，亦不涉及法律相關的問題。本產品所使用的資料庫為mongoDB，開發者需要擁有基礎的資料庫知識，以及mongoDB相關的語法，開發語言為python3，開發者可能需要python3開發之經驗。
 
 \section{User Documentation}
-$<$List the user documentation components (such as user manuals, on-line help, 
-and tutorials) that will be delivered along with the software. Identify any 
-known user documentation delivery formats or standards.$>$
+本產品目前唯一的文件為本文件，亦無額外的操作手冊。
 
 \section{Assumptions and Dependencies}
 
-$<$List any assumed factors (as opposed to known facts) that could affect the 
-requirements stated in the SRS. These could include third-party or commercial 
-components that you plan to use, issues around the development or operating 
-environment, or constraints. The project could be affected if these assumptions 
-are incorrect, are not shared, or change. Also identify any dependencies the 
-project has on external factors, such as software components that you intend to 
-reuse from another project, unless they are already documented elsewhere (for 
-example, in the vision and scope document or the project plan).$>$
+本產品使用了mongoDB與python3支援的額外之函示庫，未來如果函示庫在使用之方法上有重大之改變將會嚴重影響該產品之功能，該產品使用的額外函示庫請參照文件內文之3.2部分。
 
 
 
@@ -267,12 +251,7 @@ example, in the vision and scope document or the project plan).$>$
 \label{fig:3}
 \end{figure}
 
-\section{Hardware Interfaces}
-$<$Describe the logical and physical characteristics of each interface between 
-the software product and the hardware components of the system. This may include 
-the supported device types, the nature of the data and control interactions 
-between the software and the hardware, and communication protocols to be 
-used.$>$
+
 
 \section{Software Interfaces}
 一、 資料庫 \\
@@ -288,20 +267,11 @@ used.$>$
 (8) CurrencyConverter 0.13.5 : 用於轉換兩個不同的貨幣，輸入為金額、原始貨幣、轉換後貨幣，輸出為轉換後貨幣的金額 \\
 
 \section{Communications Interfaces}
-$<$Describe the requirements associated with any communications functions 
-required by this product, including e-mail, web browser, network server 
-communications protocols, electronic forms, and so on. Define any pertinent 
-message formatting. Identify any communication standards that will be used, such 
-as FTP or HTTP. Specify any communication security or encryption issues, data 
-transfer rates, and synchronization mechanisms.$>$
+本產品要求使用者要有正常的網路環境，來處理與伺服器之間的連線，伺服器亦不可將用於接收傳送的port使用防火牆擋住，須開放來自外來的連線需求。
 
 
 \chapter{System Features}
-$<$This template illustrates organizing the functional requirements for the 
-product by system features, the major services provided by the product. You may 
-prefer to organize this section by use case, mode of operation, user class, 
-object class, functional hierarchy, or combinations of these, whatever makes the 
-most logical sense for your product.$>$
+
 
 \section{Fast Search Weather and Exchange rate Information}
 該特色可以幫助使用者快速的取得特定地區的天氣資訊以及兩個不同貨幣之間的貨幣量值轉換
@@ -324,13 +294,6 @@ most logical sense for your product.$>$
 
 \chapter{Other Nonfunctional Requirements}
 
-\section{Performance Requirements}
-$<$If there are performance requirements for the product under various 
-circumstances, state them here and explain their rationale, to help the 
-developers understand the intent and make suitable design choices. Specify the 
-timing relationships for real time systems. Make such requirements as specific 
-as possible. You may need to state performance requirements for individual 
-functional requirements or features.$>$
 
 \section{Safety Requirements}
 Client在發送訊息時，會有兩個指令會造成錯誤：\\
@@ -343,19 +306,13 @@ Client在發送訊息時，會有兩個指令會造成錯誤：\\
 目前只有針對帳號密碼登入時，把它們與資料庫進行比對，比對錯誤將會有訊息顯示在client端的UI要求重輸，沒有其他包含針對資料庫或連線進行惡意攻擊的防護措施
 
 \section{Software Quality Attributes}
-$<$Specify any additional quality characteristics for the product that will be 
-important to either the customers or the developers. Some to consider are: 
-adaptability, availability, correctness, flexibility, interoperability, 
-maintainability, portability, reliability, reusability, robustness, testability, 
-and usability. Write these to be specific, quantitative, and verifiable when 
-possible. At the least, clarify the relative preferences for various attributes, 
-such as ease of use over ease of learning.$>$
+
+該產品擁有高度的可測試性及可維護性: \\
+(1)可測試性: 該產品在開發中皆可使用簡易的輸出行為來測試結果，測試員可使用單個裝置扮演server以及多個client的角色，進行交互測試。\\
+(2)可維護性: 該產品開發中所使用的程式變數皆為有意義之命名，function之間功能的獨立性亦非常明確，功能修改以及新增皆非常容易。\\
 
 \section{Business Rules}
-$<$List any operating principles about the product, such as which individuals or 
-roles can perform which functions under specific circumstances. These are not 
-functional requirements in themselves, but they may imply certain functional 
-requirements to enforce the rules.$>$
+此產品關於client端存在類似管理員的角色，只要client知道特殊的密碼，便可以使用該密碼進行剔除連天室其他用戶的動作，輸入指令為 - kick (nickname) - ，輸入後系統會要求輸入特殊的密碼，輸入正確即可踢除用戶，被剔除的用戶將會被強制斷線並關閉應用程式。
 
 
 \chapter{Other Requirements}
@@ -371,10 +328,6 @@ acronyms and abbreviations. You may wish to build a separate glossary that spans
 multiple projects or the entire organization, and just include terms specific to 
 a single project in each SRS.$>$
 
-\section{Appendix B: Analysis Models}
-$<$Optionally, include any pertinent analysis models, such as data flow 
-diagrams, class diagrams, state-transition diagrams, or entity-relationship 
-diagrams.$>$
 
 \section{Appendix C: To Be Determined List}
 $<$Collect a numbered list of the TBD (to be determined) references that remain 
