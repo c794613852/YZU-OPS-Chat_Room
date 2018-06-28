@@ -161,12 +161,13 @@ components of the overall system, subsystem interconnections, and external
 interfaces can be helpful.$>$
 
 \section{Product Functions}
-$<$Summarize the major functions the product must perform or must let the user 
-perform. Details will be provided in Section 3, so only a high level summary 
-(such as a bullet list) is needed here. Organize the functions to make them 
-understandable to any reader of the SRS. A picture of the major groups of 
-related requirements and how they relate, such as a top level data flow diagram 
-or object class diagram, is often effective.$>$
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=14cm]{Class.jpg}
++\end{center}
+\caption{Class}
+\label{fig:1}
+\end{figure}
 
 \section{User Classes and Characteristics}
 $<$Identify the various user classes that you anticipate will use this product.  
@@ -278,7 +279,7 @@ Client在發送訊息時，會有兩個指令會造成錯誤：\\
 (2)可維護性: 該產品開發中所使用的程式變數皆為有意義之命名，function之間功能的獨立性亦非常明確，功能修改以及新增皆非常容易。\\
 
 \section{Business Rules}
-此產品關於client端存在類似管理員的角色，只要client知道特殊的密碼，便可以使用該密碼進行剔除連天室其他用戶的動作，輸入指令為 - kick (nickname) - ，輸入後系統會要求輸入特殊的密碼，輸入正確即可踢除用戶，被剔除的用戶將會被強制斷線並關閉應用程式。
+此產品關於client端存在類似管理員的角色，只要client知道特殊的密碼，便可以使用該密碼進行剔除連天室其他用戶的動作，輸入指令為 - bot kick (nickname) - ，輸入後系統會要求輸入特殊的密碼，輸入正確即可踢除用戶，被剔除的用戶將會被強制斷線並關閉應用程式。
 
 
 \chapter{Other Requirements}
